@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.handy.audy.daud.alfian.prototype_lomba.BuatVote"
+    tools:showIn="@layout/activity_buat_vote"
+    android:id="@+id/layout">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BUAT VOTING BARU"
+        style="@style/Judul2"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/judul" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/judul">
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pertanyaan"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingStart="10dp">
+            <EditText
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:singleLine="false"
+                android:hint="Pertanyaan"
+                android:id="@+id/txtPertanyaan" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal Voting"
+                android:id="@+id/textView2" />
+        </TableRow>
+
+        <TableRow
+            android:paddingStart="10dp">
+
+            <EditText
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:id="@+id/txtTanggalMulai"
+                android:hint="Tanggal Mulai"/>
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-"
+                android:gravity="center_horizontal"/>
+
+            <EditText
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:id="@+id/txtTanggalSelesai"
+                android:hint="Tanggal Selesai"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilihan Voting"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingStart="10dp">
+            <EditText
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:singleLine="false"
+                android:hint="Pilihan 1"
+                android:id="@+id/txtPilihan1"/>
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Tambah Gambar 1"
+                android:id="@+id/btnGambar1"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingStart="10dp">
+            <EditText
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:singleLine="false"
+                android:hint="Pilihan 2"
+                android:id="@+id/txtPilihan2"/>
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Tambah Gambar 2"
+                android:id="@+id/btnGambar2"/>
+        </TableRow>
+
+        <TableRow
+            android:paddingStart="10dp">
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Tambah Pilihan"
+                android:id="@+id/btnTambahPilihan"/>
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="KEMBALI"
+                android:id="@+id/btnKembali"/>
+            <Button
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="KIRIM"
+                android:id="@+id/btnKirim"/>
+
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

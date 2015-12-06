@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Prototype_Lomba</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_buat_vote">BuatVote</string>
+    <string name="title_activity_lihat_vote">LihatVote</string>
+    <string name="title_activity_riwayat_vote">RiwayatVote</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_voting">Voting</string>
+    <string name="title_activity_hasil_voting">HasilVoting</string>
+</resources>
