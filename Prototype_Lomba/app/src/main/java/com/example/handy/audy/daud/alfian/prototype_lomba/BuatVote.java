@@ -30,6 +30,8 @@ public class BuatVote extends AppCompatActivity {
     int flagKeyboard = 0;
     Calendar calendar = Calendar.getInstance();
 
+    // Vandal dikit oleh Daud untuk ngetes Git
+
     private void updateLabelMulai() {
         String myFormat = "dd-MM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
