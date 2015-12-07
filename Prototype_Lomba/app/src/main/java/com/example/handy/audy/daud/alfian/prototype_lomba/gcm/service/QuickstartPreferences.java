@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.handy.audy.daud.alfian.prototype_lomba;
+package com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service;
 
 public class QuickstartPreferences {
 

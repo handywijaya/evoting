@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.handy.audy.daud.alfian.prototype_lomba;
+package com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.example.handy.audy.daud.alfian.prototype_lomba.MainActivity;
+import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.google.android.gms.gcm.GcmListenerService;
 
 public class MyGcmListenerService extends GcmListenerService {

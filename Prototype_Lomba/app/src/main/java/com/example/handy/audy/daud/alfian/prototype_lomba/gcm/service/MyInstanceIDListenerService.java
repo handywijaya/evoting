@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.handy.audy.daud.alfian.prototype_lomba;
+package com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
-import com.google.android.gms.iid.InstanceID;
 import com.google.android.gms.iid.InstanceIDListenerService;
 
 public class MyInstanceIDListenerService extends InstanceIDListenerService {
