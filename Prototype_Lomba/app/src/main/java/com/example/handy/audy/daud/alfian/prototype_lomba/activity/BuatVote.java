@@ -1,34 +1,54 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
+import com.example.handy.audy.daud.alfian.prototype_lomba.jsonparser.JSONParser;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class BuatVote extends AppCompatActivity {
+
+
+    private ProgressDialog pDialog;
+    JSONParser jsonParser = new JSONParser();
+    private static String urlWebService = "http://xalvsx.esy.es/api/index.php";
+    private static final String TAG_SUCCESS = "success";
+    private int flag = 0;
 
     EditText txtPertanyaan, txtPilihan1, txtPilihan2, txtTanggalMulai, txtTanggalSelesai;
     Button btnGambar1, btnGambar2, btnTambahPilihan, btnKembali, btnKirim;
     int flagKeyboard = 0;
     Calendar calendar = Calendar.getInstance();
-
-    // Vandal dikit oleh Daud untuk ngetes Git
 
     private void updateLabelMulai() {
         String myFormat = "dd-MM-yyyy";
@@ -152,11 +172,57 @@ public class BuatVote extends AppCompatActivity {
                 String selesai = txtTanggalSelesai.getText().toString();
 
                 if(!pertanyaan.trim().equals("") && !pilihan1.trim().equals("") && !pilihan2.trim().equals("") && !mulai.trim().equals("") && !selesai.trim().equals("")) {
+                    new InsertPertanyaan().execute();
                     Snackbar.make(v, "Pertanyaan terkirim", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+    class InsertPertanyaan extends AsyncTask<String,String,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(BuatVote.this);
+            pDialog.setMessage("Making Your Account");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            /*List<NameValuePair> args = new ArrayList<NameValuePair>();
+            args.add(new BasicNameValuePair("Username", username));
+            args.add(new BasicNameValuePair("Password", password));
+            args.add(new BasicNameValuePair("tag", "create_user"));
+            JSONObject jsonObject = jsonParser.makeHtppRequest(urlWebService,"POST",args);
+            try{
+                int success = jsonObject.getInt(TAG_SUCCESS);
+                if(success == 1){
+                    flag = 1;
+                }
+                else{
+                    flag = 0;
+                }
+            } catch (JSONException e){
+                e.printStackTrace();
+            }*/
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //super.onPostExecute(s);
+            pDialog.dismiss();
+            if(flag == 1){
+                //Toast.makeText(getApplicationContext(), "New Account Successfully Made", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                //Toast.makeText(getApplicationContext(), "Wrong Username or Password", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }
