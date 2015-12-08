@@ -66,7 +66,7 @@ public class Voting extends BaseActivity {
         setSupportActionBar(toolbar);
 
         idPertanyaan = getIntent().getStringExtra("idPertanyaan");
-        idPertanyaan = "1";
+        //idPertanyaan = "1";
 
         tvPertanyaan = (TextView) findViewById(R.id.tvPertanyaan);
         tvPertanyaan.setText(getIntent().getStringExtra("pertanyaanVoting"));
@@ -117,7 +117,7 @@ public class Voting extends BaseActivity {
         @Override
         protected String doInBackground(String... params) {
             List<NameValuePair> args = new ArrayList<NameValuePair>();
-            idPertanyaan = "1";
+            //idPertanyaan = "1";
             args.add(new BasicNameValuePair("idPertanyaan", idPertanyaan));
             args.add(new BasicNameValuePair("tag", "get_pertanyaan"));
 
