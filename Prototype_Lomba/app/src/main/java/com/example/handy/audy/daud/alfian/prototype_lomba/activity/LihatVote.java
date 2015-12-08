@@ -1,4 +1,4 @@
-package com.example.handy.audy.daud.alfian.prototype_lomba;
+package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 
 import java.util.ArrayList;
 import java.util.List;
