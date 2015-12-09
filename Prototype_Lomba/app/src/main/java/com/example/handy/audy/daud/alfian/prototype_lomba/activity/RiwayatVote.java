@@ -77,8 +77,6 @@ public class RiwayatVote extends BaseActivity implements ListRiwayatVoteAdapter.
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
                 finish();
             }
         });
@@ -88,7 +86,7 @@ public class RiwayatVote extends BaseActivity implements ListRiwayatVoteAdapter.
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent i = new Intent(getApplicationContext(), HasilVoting.class);
+        Intent i = new Intent(getApplicationContext(), HasilVotingActivity.class);
         i.putExtra("idPertanyaan", adapter.getSoalID(position));
         i.putExtra("pertanyaanVoting", adapter.getSoalName(position));
         startActivity(i);

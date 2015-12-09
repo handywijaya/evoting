@@ -9,29 +9,29 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.HasilVoting"
+    tools:context=".activity.HasilVotingActivity"
     tools:showIn="@layout/activity_hasil_voting">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HASIL VOTING"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        style="@style/Judul3"
-        android:id="@+id/judul"/>
+        style="@style/Judul4"
+        android:id="@+id/tvSoal"/>
 
-    <ImageView
+    <com.github.mikephil.charting.charts.PieChart
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:id="@+id/chart"
-        android:layout_below="@+id/judul"/>
+        android:layout_above="@+id/btnKembali"
+        android:layout_below="@+id/tvSoal"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnKembali"
         android:text="Kembali"
-        android:layout_below="@id/chart"/>
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
