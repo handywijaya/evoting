@@ -28,7 +28,7 @@ public class Profile extends BaseActivity {
 
     ProgressDialog progressDialog;
 
-    String noKTP, nama, tempatTanggalLahir, jenisKelamin, alamat, RTRW, kelurahan, kecamatan, agama, statusPerkawinan, pekerjaan, kewarganegaraan;
+    String noKTP, idUser, nama, tempatTanggalLahir, jenisKelamin, alamat, RTRW, kelurahan, kecamatan, agama, statusPerkawinan, pekerjaan, kewarganegaraan;
 
     TextView txtNoKTP, txtNama, txtTempatTanggalLahir, txtJenisKelamin, txtAlamat, txtRTRW, txtKelurahan, txtKecamatan, txtAgama, txtStatusPerkawinan, txtPekerjaan, txtKewarganegaraan;
 
@@ -65,8 +65,8 @@ public class Profile extends BaseActivity {
 
         try
         {
-            noKTP = getIntent().getStringExtra("noKTP");
-            noKTP = "2222222";
+            noKTP = getIntent().getStringExtra("idKtp");
+            idUser = getIntent().getStringExtra("idUser");
 
         }
         catch (Exception ex)
@@ -143,7 +143,6 @@ public class Profile extends BaseActivity {
         @Override
         protected String doInBackground(String... params) {
             List<NameValuePair> args = new ArrayList<NameValuePair>();
-            noKTP = "2222222";
             args.add(new BasicNameValuePair("noKTP", noKTP));
             args.add(new BasicNameValuePair("tag", "get_data_profile"));
 
