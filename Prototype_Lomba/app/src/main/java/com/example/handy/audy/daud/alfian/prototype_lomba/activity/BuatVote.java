@@ -58,7 +58,6 @@ public class BuatVote extends AppCompatActivity {
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     private static String urlWebService = "http://xalvsx.esy.es/api/index.php";
-    //private static String urlWebService = "http://10.0.2.2:81/Lomba/index.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_ITEMS = "items";
     private int flag = 0;
@@ -99,8 +98,6 @@ public class BuatVote extends AppCompatActivity {
         namaPilihan = new ArrayList<String>();
         idKtp = getIntent().getStringExtra("idKtp");
         idPembuat = getIntent().getStringExtra("idUser");
-        //channel = getChannel();
-        //channel = "";
         theActivity = this;
 
         spnKategori = (Spinner)findViewById(R.id.spnKategori);
@@ -256,7 +253,6 @@ public class BuatVote extends AppCompatActivity {
                 args.add(new BasicNameValuePair("idPembuat", idPembuat));
                 args.add(new BasicNameValuePair("tanggal_mulai",tanggalMulaiString));
                 args.add(new BasicNameValuePair("tanggal_selesai", tanggalSelesaiString));
-                //args.add(new BasicNameValuePair("channel", channel));
                 args.add(new BasicNameValuePair("idKtp", idKtp));
                 args.add(new BasicNameValuePair("kategori",kategori.toLowerCase()));
                 JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
@@ -297,7 +293,7 @@ public class BuatVote extends AppCompatActivity {
     }
 
     class checkLevel extends AsyncTask<String,String,String> {
-        int success, success2 = 0;
+        int success = 0;
 
         @Override
         protected void onPreExecute() {
@@ -369,25 +365,4 @@ public class BuatVote extends AppCompatActivity {
             }
         }
     }
-
-    /*public String getChannel(){
-        String hasil = "";
-        JSONArray row = new JSONArray();
-
-        List<NameValuePair> args = new ArrayList<NameValuePair>();
-        args.add(new BasicNameValuePair("tag","get_data_profile"));
-        args.add(new BasicNameValuePair("noKTP",idKtp));
-        JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
-
-        try{
-            row = jsonObject.getJSONArray("items");
-
-            hasil = row.getString(10) + "_" + row.getString(9) + "_" + row.getString(8) + "_" + row.getString(7);
-
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
-        return hasil;
-    }*/
 }

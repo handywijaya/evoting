@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtEmail"
         android:enabled="true"
+        android:singleLine="true"
         android:layout_below="@+id/txtIdKtp"
         android:layout_alignParentStart="true"
         android:hint="Alamat Surel" />

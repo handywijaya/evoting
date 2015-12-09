@@ -111,7 +111,6 @@ public class LoginActivity extends BaseActivity {
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
             if(success2 == 1) {
-                Toast.makeText(LoginActivity.this, "Login berhasil cuy", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(),MainActivity.class);
                 i.putExtra("idKtp",idKtp);
                 i.putExtra("idUser",idUser);

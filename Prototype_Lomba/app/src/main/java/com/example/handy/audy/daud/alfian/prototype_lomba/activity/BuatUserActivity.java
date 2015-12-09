@@ -122,7 +122,7 @@ public class BuatUserActivity extends BaseActivity {
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
             if(success2 == 1) {
-                Toast.makeText(BuatUserActivity.this, "User berhasil dibuat cuy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuatUserActivity.this, "Data pengguna berhasil dibuat", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(),MainActivity.class);
                 i.putExtra("idKtp",idKtp);
                 i.putExtra("idUser",idUser);
@@ -131,7 +131,7 @@ public class BuatUserActivity extends BaseActivity {
 
             }
             else {
-                Toast.makeText(BuatUserActivity.this, "Wah, ada kesalahan teknis nih cuy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuatUserActivity.this, "Pembuatan data pengguna gagal. Silahkan coba lagi", Toast.LENGTH_SHORT).show();
             }
 
             pDialog.dismiss();

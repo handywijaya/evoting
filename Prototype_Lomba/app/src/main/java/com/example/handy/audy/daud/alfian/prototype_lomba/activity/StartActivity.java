@@ -72,7 +72,7 @@ public class StartActivity extends BaseActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(StartActivity.this);
-            pDialog.setMessage("Mendeteksi kartu....");
+            pDialog.setMessage("Memeriksa data ktp....");
             pDialog.setIndeterminate(false);
             pDialog.show();
         }
@@ -102,23 +102,20 @@ public class StartActivity extends BaseActivity {
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
             if(success2 == 1) {
-                Toast.makeText(StartActivity.this, "Ktp ada coy, user belom", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(),BuatUserActivity.class);
                 i.putExtra("idKtp",idKtp);
                 startActivity(i);
                 finish();
             }
             else if(success2 == 2) {
-                Toast.makeText(StartActivity.this, "Ktp dan user ada coy, login here", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                 i.putExtra("idKtp",idKtp);
                 i.putExtra("idUser",idUser);
                 startActivity(i);
                 finish();
-                //save sharedPreferences
             }
             else {
-                Toast.makeText(StartActivity.this, "Wah ktp bajakan ini mah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StartActivity.this, "Data ktp tidak valid", Toast.LENGTH_SHORT).show();
             }
 
             pDialog.dismiss();
