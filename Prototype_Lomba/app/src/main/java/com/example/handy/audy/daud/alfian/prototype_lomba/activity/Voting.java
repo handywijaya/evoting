@@ -298,6 +298,7 @@ public class Voting extends BaseActivity {
             List<NameValuePair> args = new ArrayList<NameValuePair>();
             //idPertanyaan = "1";
             args.add(new BasicNameValuePair("idUser", idUser));
+            args.add(new BasicNameValuePair("idSoal", idPertanyaan));
             args.add(new BasicNameValuePair("idPilihan", String.valueOf(selectedId)));
 
             args.add(new BasicNameValuePair("tag", "submit_voting"));
