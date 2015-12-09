@@ -3,16 +3,13 @@ package com.example.handy.audy.daud.alfian.prototype_lomba.enumeration;
 /**
  * Created by Audy on 08-Dec-15.
  */
-public enum KategoriEnum
+public enum KategoriEnumRT
 {
-    RT(1),
-    RW(2),
-    Kelurahan(3),
-    Kecamatan(4);
+    RT(1);
 
     private int value;
 
-    private KategoriEnum(int value) {
+    private KategoriEnumRT(int value) {
         this.value = value;
     }
 }

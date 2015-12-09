@@ -13,134 +13,145 @@
     tools:showIn="@layout/activity_buat_vote"
     android:id="@+id/layout">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BUAT VOTING BARU"
-        style="@style/Judul2"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/judul" />
-
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/judul">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2" >
 
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pertanyaan"/>
-        </TableRow>
-
-        <TableRow
-            android:paddingStart="10dp">
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:singleLine="false"
-                android:hint="Pertanyaan"
-                android:id="@+id/txtPertanyaan" />
-        </TableRow>
-
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tanggal Voting"
-                android:id="@+id/textView2" />
-        </TableRow>
-
-        <TableRow
-            android:paddingStart="10dp">
-
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:id="@+id/txtTanggalMulai"
-                android:hint="Tanggal Mulai"/>
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-"
-                android:gravity="center_horizontal"/>
-
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:id="@+id/txtTanggalSelesai"
-                android:hint="Tanggal Selesai"/>
-
-        </TableRow>
-
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/judul">
 
-            <TextView
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BUAT VOTING BARU"
+                    style="@style/Judul2"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/judul" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pertanyaan"/>
+            </TableRow>
+
+            <TableRow
+                android:paddingStart="10dp">
+                <EditText
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="false"
+                    android:hint="Pertanyaan"
+                    android:id="@+id/txtPertanyaan" />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tanggal Voting"
+                    android:id="@+id/textView2" />
+            </TableRow>
+
+            <TableRow
+                android:paddingStart="10dp">
+
+                <EditText
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:id="@+id/txtTanggalMulai"
+                    android:hint="Tanggal Mulai"/>
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:gravity="center_horizontal"/>
+
+                <EditText
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:id="@+id/txtTanggalSelesai"
+                    android:hint="Tanggal Selesai"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kategori" />
+            </TableRow>
+
+            <TableRow
+                android:paddingStart="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kategori" />
-        </TableRow>
+                android:layout_height="wrap_content" >
 
-        <TableRow
-            android:paddingStart="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spnKategori" />
+            </TableRow>
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spnKategori" />
-        </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pilihan Voting"/>
+            </TableRow>
 
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pilihan Voting"/>
-        </TableRow>
+            <TableRow>
 
-        <TableRow
-            android:paddingStart="10dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/layoutPilihan">
 
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/lviPilihan" />
-        </TableRow>
 
-        <TableRow
-            android:paddingStart="10dp">
+                </LinearLayout>
+            </TableRow>
 
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Tambah Pilihan"
-                android:id="@+id/btnTambahPilihan"/>
-        </TableRow>
+            <TableRow>
 
-        <TableRow>
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="KEMBALI"
-                android:id="@+id/btnKembali"/>
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="KIRIM"
-                android:id="@+id/btnKirim"/>
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="Tambah Pilihan"
+                    android:id="@+id/btnTambahPilihan"/>
+            </TableRow>
 
-        </TableRow>
-    </TableLayout>
+            <TableRow>
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="KEMBALI"
+                    android:id="@+id/btnKembali"/>
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="KIRIM"
+                    android:id="@+id/btnKirim"/>
+
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
 </RelativeLayout>
