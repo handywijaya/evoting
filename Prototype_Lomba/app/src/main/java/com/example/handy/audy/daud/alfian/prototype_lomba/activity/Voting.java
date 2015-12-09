@@ -69,9 +69,7 @@ public class Voting extends BaseActivity {
         setSupportActionBar(toolbar);
 
         idPertanyaan = getIntent().getStringExtra("idPertanyaan");
-        idPertanyaan = "1";
         idUser = getIntent().getStringExtra("idUser");
-        idUser= "1";
         idKtp = getIntent().getStringExtra("idKtp");
         tvPertanyaan = (TextView) findViewById(R.id.tvPertanyaan);
         tvPertanyaan.setText(getIntent().getStringExtra("pertanyaanVoting"));
@@ -111,7 +109,6 @@ public class Voting extends BaseActivity {
             {
                 RadioButton radioButtons = new RadioButton(Voting.this);
                 String id = pilihan.get(TAG_IDPILIHAN);
-                Log.d("test", id);
 
                 radioButtons.setId(Integer.valueOf(id));
                 radioButtons.setText(pilihan.get(TAG_NAMAPILIHAN));
@@ -250,8 +247,6 @@ public class Voting extends BaseActivity {
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LihatVote.class);
-                startActivity(i);
                 finish();
             }
         });
