@@ -35,6 +35,7 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.orhanobut:dialogplus:1.10@aar'
 
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
 }

@@ -1,6 +1,7 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.jsonparser.JSONParser;
@@ -14,4 +15,5 @@ public class BaseActivity extends AppCompatActivity
     protected static String urlWebService = "http://xalvsx.esy.es/api/index.php";
     //protected static String urlWebService = "http://10.0.2.2:8079/Lomba/index.php";
     protected static final String TAG_SUCCESS = "success";
+    protected static SharedPreferences sharedPreferences;
 }

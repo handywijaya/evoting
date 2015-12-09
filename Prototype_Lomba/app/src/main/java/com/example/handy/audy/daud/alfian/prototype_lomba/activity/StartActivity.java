@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -42,14 +43,18 @@ public class StartActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        boolean logged_in = sharedPreferences.getBoolean("logged_in", false);
+        if(logged_in) {
+            idKtp = sharedPreferences.getString("idKtp",null);
+            idUser = sharedPreferences.getString("idUser",null);
+            Intent i = new Intent(getApplicationContext(),MainActivity.class);
+            i.putExtra("idKtp",idKtp);
+            i.putExtra("idUser",idUser);
+            startActivity(i);
+            finish();
+        }
 
         txtIdKtp = (EditText)findViewById(R.id.txtIdKtp);
 

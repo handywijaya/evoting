@@ -11,17 +11,22 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -94,7 +99,6 @@ public class Voting extends BaseActivity {
             progressDialog = new ProgressDialog(Voting.this);
             progressDialog.setMessage("Mengambil Data..");
             progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
             progressDialog.show();
         }
 
@@ -229,7 +233,48 @@ public class Voting extends BaseActivity {
                             .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    new SubmitJawaban().execute();
+                                    LinearLayout lay = new LinearLayout(Voting.this);
+                                    lay.setOrientation(LinearLayout.VERTICAL);
+                                    lay.setGravity(Gravity.CENTER);
+                                    LinearLayout.LayoutParams l = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                                    lay.setLayoutParams(l);
+                                    TextView tvTitle = new TextView(Voting.this);
+                                    tvTitle.setTextSize(20);
+                                    tvTitle.setText("Tempel kembali e-ktp anda");
+                                    lay.addView(tvTitle);
+                                    final EditText txtIdKtp = new EditText(Voting.this);
+                                    txtIdKtp.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                                    //txtIdKtp.setEnabled(false);
+                                    txtIdKtp.setSingleLine(true);
+                                    lay.addView(txtIdKtp);
+
+                                    final EditText txtIdKtp2 = txtIdKtp;
+
+                                    Button btnVerifikasi = new Button(Voting.this);
+                                    btnVerifikasi.setText("Verifikasi");
+                                    btnVerifikasi.setGravity(Gravity.CENTER);
+                                    lay.addView(btnVerifikasi);
+
+                                    final DialogPlus dialogp = DialogPlus.newDialog(Voting.this)
+                                            .setContentHolder(new ViewHolder(lay))
+                                            .setGravity(Gravity.CENTER)
+                                            .setPadding(25, 25, 25, 25)
+                                            .create();
+
+                                    btnVerifikasi.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            String idKtp2 = txtIdKtp.getText().toString();
+                                            if (idKtp.equals(idKtp2)) {
+                                                dialogp.dismiss();
+                                                new SubmitJawaban().execute();
+                                            }
+                                            else {
+                                                Toast.makeText(Voting.this, "Data E-KTP tidak valid", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                    dialogp.show();
                                 }
                             })
                             .setNegativeButton("Tidak", null)

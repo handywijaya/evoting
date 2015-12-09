@@ -1,7 +1,9 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +15,9 @@ import android.widget.Button;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
-    Button btnBuatVote, btnLihatVote, btnRiwayatVote, btnProfile;
+    Button btnBuatVote, btnLihatVote, btnRiwayatVote, btnProfile, btnLogout;
     String idUser,idKtp;
 
     @Override
@@ -25,14 +27,28 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        if(getIntent().getStringExtra("idSoal") != null) { //buat nangkep notif, kirim aja extra idSoal di intentnya, supaya di redirect ke Voting langsung
+            String idSoal = getIntent().getStringExtra("idSoal");
+            boolean logged_in = sharedPreferences.getBoolean("logged_in", false);
+            if(logged_in) {
+                idKtp = sharedPreferences.getString("idKtp", null);
+                idUser = sharedPreferences.getString("idUser", null);
+                Intent i = new Intent(getApplicationContext(), Voting.class);
+                i.putExtra("idKtp", idKtp);
+                i.putExtra("idUser", idUser);
+                i.putExtra("idPertanyaan", idSoal);
+                i.putExtra("pertanyaanVoting", ""); //biarin kosong
+                startActivity(i);
             }
-        });
+            else {
+                //kalo belom login, aneh harusnya notif ga masuk, tapi yaudah suruh login aja abis itu cek sendiri di Lihat Pilihan Voting
+                Intent i = new Intent(getApplicationContext(),StartActivity.class);
+                startActivity(i);
+                finish();
+            }
+        }
 
         idUser = getIntent().getStringExtra("idUser");
         idKtp = getIntent().getStringExtra("idKtp");
@@ -78,6 +94,19 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("idKtp",idKtp);
                 i.putExtra("idUser",idUser);
                 startActivity(i);
+            }
+        });
+
+        btnLogout = (Button)findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("logged_in",false);
+                editor.commit();
+                Intent i = new Intent(getApplicationContext(),StartActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 

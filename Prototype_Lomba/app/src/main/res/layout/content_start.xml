@@ -24,7 +24,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Cek Ktp"
         android:id="@+id/btnLogin"
         android:layout_below="@+id/txtIdKtp"
         android:layout_centerHorizontal="true" />

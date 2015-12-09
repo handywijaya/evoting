@@ -57,25 +57,8 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
 
         soal = new ArrayList<Soal>();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         idUser = getIntent().getStringExtra("idUser");
         idKtp = getIntent().getStringExtra("idKtp");
-
-        pertanyaanVoting = new ArrayList<String>();
-        idVoting = new ArrayList<String>();
-
-        for(int i = 0; i<5; i++) {
-            pertanyaanVoting.add("Pertanyaan " + i);
-            idVoting.add("0000" + i);
-        }
 
         rcVoting = (AutofitRecyclerView) findViewById(R.id.rcVoting);
         rcVoting.setHasFixedSize(true);

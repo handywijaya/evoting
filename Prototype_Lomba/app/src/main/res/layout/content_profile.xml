@@ -29,25 +29,17 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PROFILE"
+                    android:text="PROFIL"
                     style="@style/Judul"
                     android:id="@+id/judul"
-                    android:layout_marginStart="39dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_alignTop="@+id/foto"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignTop="@+id/foto" />
 
-                <ImageView
-                    android:layout_width="90dp"
-                    android:layout_height="120dp"
-                    android:background="@drawable/foto"
-                    android:id="@+id/foto"
-                    android:layout_alignParentTop="true" />
-                </TableRow>
+            </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -66,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtNoKTP"
-                    android:text="3320182372829"
+                    android:text=""
                     />
             </TableRow>
 
@@ -91,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtNama"
-                    android:text="Handy Wijaya"
+                    android:text=""
                     />
 
             </TableRow>
@@ -117,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtTempatTanggalLahir"
-                    android:text="Semarang, 14 Oktober 1994"
+                    android:text=""
                     />
 
             </TableRow>
@@ -143,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtJenisKelamin"
-                    android:text="Laki-laki"
+                    android:text=""
                     />
 
             </TableRow>
@@ -169,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtAlamat"
-                    android:text="Puri Anjasmoro J10/24"
+                    android:text=""
                     />
 
             </TableRow>
@@ -196,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtRTRW"
-                    android:text="008/001"
+                    android:text=""
                     />
 
             </TableRow>
@@ -222,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtKelurahan"
-                    android:text="Tawangsari"
+                    android:text=""
                     />
 
             </TableRow>
@@ -248,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtKecamatan"
-                    android:text="Semarang Barat"
+                    android:text=""
                     />
 
             </TableRow>
@@ -274,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtAgama"
-                    android:text="Kristen"
+                    android:text=""
                     />
 
             </TableRow>
@@ -300,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtStatusPerkawinan"
-                    android:text="Sudah Kawin"
+                    android:text=""
                     />
 
             </TableRow>
@@ -326,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtPekerjaan"
-                    android:text="Pelajar"
+                    android:text=""
                     />
 
             </TableRow>
@@ -353,7 +345,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/txtKewarganegaraan"
-                    android:text="WNI"
+                    android:text=""
                     />
 
             </TableRow>

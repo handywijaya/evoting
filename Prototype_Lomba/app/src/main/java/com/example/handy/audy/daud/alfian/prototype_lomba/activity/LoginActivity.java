@@ -2,8 +2,10 @@ package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,15 +41,6 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         idKtp = getIntent().getStringExtra("idKtp");
 
@@ -111,6 +104,13 @@ public class LoginActivity extends BaseActivity {
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
             if(success2 == 1) {
+                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("idKtp",idKtp);
+                editor.putString("idUser",idUser);
+                editor.putBoolean("logged_in",true);
+                editor.commit();
+
                 Intent i = new Intent(getApplicationContext(),MainActivity.class);
                 i.putExtra("idKtp",idKtp);
                 i.putExtra("idUser",idUser);

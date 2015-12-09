@@ -129,6 +129,7 @@ public class Profile extends BaseActivity {
                 txtAlamat.setText(alamat);
                 txtKelurahan.setText(kelurahan);
                 txtKecamatan.setText(kecamatan);
+                txtRTRW.setText(RTRW);
                 txtAgama.setText(agama);
                 txtStatusPerkawinan.setText(statusPerkawinan);
                 txtPekerjaan.setText(pekerjaan);
