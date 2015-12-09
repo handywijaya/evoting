@@ -77,6 +77,8 @@ public class Voting extends BaseActivity {
 
         new LoadPertanyaan().execute();
 
+
+
     }
 
     class LoadPertanyaan extends AsyncTask<String, String, String>
@@ -219,6 +221,8 @@ public class Voting extends BaseActivity {
 
                 if (selectedId != -1) {
                     RadioButton selectedRb = (RadioButton) findViewById(selectedId);
+
+
                     Snackbar.make(v, "Berhasil memilih " + selectedRb.getText().toString(), Snackbar.LENGTH_SHORT).show();
                 } else {
                     Snackbar.make(v, "Pilih satu dari pilihan voting terlebih dahulu", Snackbar.LENGTH_SHORT).show();
@@ -235,5 +239,6 @@ public class Voting extends BaseActivity {
             }
         });
     }
+
 
 }
