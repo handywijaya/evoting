@@ -16,6 +16,7 @@ import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 public class MainActivity extends AppCompatActivity {
 
     Button btnBuatVote, btnLihatVote, btnRiwayatVote, btnProfile;
+    String idUser,idKtp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +34,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        idUser = getIntent().getStringExtra("idUser");
+        idKtp = getIntent().getStringExtra("idKtp");
+
         btnBuatVote = (Button) findViewById(R.id.btnVotingBaru);
         btnBuatVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), BuatVote.class);
+                i.putExtra("idKtp",idKtp);
+                i.putExtra("idUser",idUser);
                 startActivity(i);
             }
         });
@@ -47,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), LihatVote.class);
+                i.putExtra("idKtp",idKtp);
+                i.putExtra("idUser",idUser);
                 startActivity(i);
             }
         });
@@ -56,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), RiwayatVote.class);
+                i.putExtra("idKtp",idKtp);
+                i.putExtra("idUser",idUser);
                 startActivity(i);
             }
         });
@@ -65,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Profile.class);
+                i.putExtra("idKtp",idKtp);
+                i.putExtra("idUser",idUser);
                 startActivity(i);
             }
         });
