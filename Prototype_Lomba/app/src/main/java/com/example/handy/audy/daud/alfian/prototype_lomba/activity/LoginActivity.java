@@ -69,6 +69,8 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
+
+        txtPassword.requestFocus();
     }
 
     class LoginUser extends AsyncTask<String,String,String> {

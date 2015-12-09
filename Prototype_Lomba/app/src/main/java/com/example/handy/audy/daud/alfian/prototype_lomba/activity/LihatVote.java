@@ -100,9 +100,12 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
     @Override
     public void onItemClick(View view, int position) {
         Intent i = new Intent(getApplicationContext(), Voting.class);
+        i.putExtra("idKtp", idKtp);
+        i.putExtra("idUser", idUser);
         i.putExtra("idPertanyaan", adapter.getSoalID(position));
         i.putExtra("pertanyaanVoting", adapter.getSoalName(position));
         startActivity(i);
+        finish();
     }
 
     class LoadSoal extends AsyncTask<String,String,String> {
@@ -114,7 +117,6 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
             pDialog = new ProgressDialog(LihatVote.this);
             pDialog.setMessage("Memuat daftar....");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
             pDialog.show();
         }
 

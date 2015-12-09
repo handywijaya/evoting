@@ -62,7 +62,6 @@ public class RiwayatVote extends BaseActivity implements ListRiwayatVoteAdapter.
         });
 
         idUser = getIntent().getStringExtra("idUser");
-        idUser = "1";
 
         rcVoting = (AutofitRecyclerView) findViewById(R.id.rcVoting);
         rcVoting.setHasFixedSize(true);
@@ -101,7 +100,6 @@ public class RiwayatVote extends BaseActivity implements ListRiwayatVoteAdapter.
             pDialog = new ProgressDialog(RiwayatVote.this);
             pDialog.setMessage("Memuat riwayat vote....");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
             pDialog.show();
         }
 

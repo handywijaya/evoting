@@ -110,7 +110,6 @@ public class Profile extends BaseActivity {
             progressDialog = new ProgressDialog(Profile.this);
             progressDialog.setMessage("Mengambil Data..");
             progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
             progressDialog.show();
 
         }

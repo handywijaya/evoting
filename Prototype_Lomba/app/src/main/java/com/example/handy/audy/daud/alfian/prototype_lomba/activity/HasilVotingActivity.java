@@ -69,8 +69,7 @@ public class HasilVotingActivity extends BaseActivity {
             }
         });
 
-        //idPertanyaan = getIntent().getStringExtra("idPertanyaan");
-        idPertanyaan = "1";
+        idPertanyaan = getIntent().getStringExtra("idPertanyaan");
         soal = new Soal();
         listPilihanJawaban = new ArrayList<>();
         listHasilVoting = new ArrayList<>();
@@ -180,7 +179,6 @@ public class HasilVotingActivity extends BaseActivity {
             pDialog = new ProgressDialog(HasilVotingActivity.this);
             pDialog.setMessage("Memuat hasil....");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
             pDialog.show();
         }
 

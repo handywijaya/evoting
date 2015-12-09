@@ -121,7 +121,6 @@ public class Voting extends BaseActivity {
         @Override
         protected String doInBackground(String... params) {
             List<NameValuePair> args = new ArrayList<NameValuePair>();
-            //idPertanyaan = "1";
             args.add(new BasicNameValuePair("idPertanyaan", idPertanyaan));
             args.add(new BasicNameValuePair("tag", "get_pertanyaan"));
 
@@ -247,6 +246,10 @@ public class Voting extends BaseActivity {
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),LihatVote.class);
+                i.putExtra("idKtp", idKtp);
+                i.putExtra("idUser", idUser);
+                startActivity(i);
                 finish();
             }
         });
@@ -262,9 +265,7 @@ public class Voting extends BaseActivity {
             progressDialog = new ProgressDialog(Voting.this);
             progressDialog.setMessage("Menyimpan Jawaban..");
             progressDialog.setIndeterminate(false);
-            progressDialog.setCancelable(true);
             progressDialog.show();
-
         }
 
         @Override
@@ -272,13 +273,31 @@ public class Voting extends BaseActivity {
             //super.onPostExecute(s);
             progressDialog.dismiss();
 
-
             if(flag == 1)
             {
                 new AlertDialog.Builder(Voting.this)
                         .setTitle("Konfirmasi Pemilihan")
                         .setMessage("Terima kasih telah ikut berpartisipasi dalam pemilu. Silahkan lihat hasil pemilihan sementara di daftar riwayat pemilihan Anda")
-                        .setPositiveButton("Ok", null)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(getApplicationContext(),LihatVote.class);
+                                i.putExtra("idKtp", idKtp);
+                                i.putExtra("idUser", idUser);
+                                startActivity(i);
+                                finish();
+                            }
+                        })
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                Intent i = new Intent(getApplicationContext(),LihatVote.class);
+                                i.putExtra("idKtp", idKtp);
+                                i.putExtra("idUser", idUser);
+                                startActivity(i);
+                                finish();
+                            }
+                        })
                         .show();
             }
 
@@ -326,5 +345,10 @@ public class Voting extends BaseActivity {
 
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        btnKembali.callOnClick();
     }
 }
