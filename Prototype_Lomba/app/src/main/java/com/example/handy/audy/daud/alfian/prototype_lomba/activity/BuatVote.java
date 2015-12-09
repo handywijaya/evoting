@@ -266,9 +266,9 @@ public class BuatVote extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             List<NameValuePair> args = new ArrayList<NameValuePair>();
             args.add(new BasicNameValuePair("tag","insert_pilihan_jawaban"));
-            args.add(new BasicNameValuePair("idSoal",idSoal)); // get id soal dulu...
-            args.add(new BasicNameValuePair("namaPilihan",namaPilihan)); // nama pilihan dari textview
-            args.add(new BasicNameValuePair("lokasiGambar", lokasiGambar));
+            //args.add(new BasicNameValuePair("idSoal",idSoal)); // get id soal dulu...
+            //args.add(new BasicNameValuePair("namaPilihan",namaPilihan)); // nama pilihan dari textview
+            //args.add(new BasicNameValuePair("lokasiGambar", lokasiGambar));
             JSONObject jsonObject2 = jsonParser.makeHttpRequest(urlWebService, "POST", args);
 
             try{
