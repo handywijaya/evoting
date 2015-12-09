@@ -1,6 +1,8 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,7 +42,7 @@ public class Voting extends BaseActivity {
     List<HashMap<String,String>> pilihanVoting;
     RadioButton[] radioButtons;
 
-    String idPertanyaan, soal;
+    String idPertanyaan, soal, idUser, idKtp;
 
     ProgressDialog progressDialog;
     private JSONArray pertanyaan, pilihanJawaban;
@@ -53,10 +55,11 @@ public class Voting extends BaseActivity {
     private static final String TAG_TANGGALSELESAI = "TANGGAL_SELESAI";
     private static final String TAG_CHANNEL = "channel";
 
-
     private static final String TAG_IDPILIHAN = "ID_PILIHAN";
     private static final String TAG_NAMAPILIHAN = "NAMA_PILIHAN";
 
+
+    private int selectedId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,8 @@ public class Voting extends BaseActivity {
 
         idPertanyaan = getIntent().getStringExtra("idPertanyaan");
         //idPertanyaan = "1";
-
+        idUser = getIntent().getStringExtra("idUser");
+        idKtp = getIntent().getStringExtra("idKtp");
         tvPertanyaan = (TextView) findViewById(R.id.tvPertanyaan);
         tvPertanyaan.setText(getIntent().getStringExtra("pertanyaanVoting"));
 
@@ -217,15 +221,27 @@ public class Voting extends BaseActivity {
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId = rg.getCheckedRadioButtonId();
+                selectedId = rg.getCheckedRadioButtonId();
 
                 if (selectedId != -1) {
                     RadioButton selectedRb = (RadioButton) findViewById(selectedId);
 
+                    new AlertDialog.Builder(Voting.this)
+                            .setTitle("Konfirmasi Pemilihan")
+                            .setMessage("Anda yakin memilih pemilihan Anda?")
+                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    new SubmitJawaban().execute();
+                                }
+                            })
+                            .setNegativeButton("Tidak", null)
+                            .show();
 
-                    Snackbar.make(v, "Berhasil memilih " + selectedRb.getText().toString(), Snackbar.LENGTH_SHORT).show();
+
+
                 } else {
-                    Snackbar.make(v, "Pilih satu dari pilihan voting terlebih dahulu", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(v, "Pilih satu dari pilihan jawaban terlebih dahulu", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -241,4 +257,78 @@ public class Voting extends BaseActivity {
     }
 
 
+    class SubmitJawaban extends AsyncTask<String, String, String>
+    {
+        int flag = 0;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(Voting.this);
+            progressDialog.setMessage("Menyimpan Jawaban..");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //super.onPostExecute(s);
+            progressDialog.dismiss();
+
+
+            if(flag == 1)
+            {
+                new AlertDialog.Builder(Voting.this)
+                        .setTitle("Konfirmasi Pemilihan")
+                        .setMessage("Terima kasih telah ikut berpartisipasi dalam pemilu. Silahkan lihat hasil pemilihan sementara di daftar riwayat pemilihan Anda")
+                        .setPositiveButton("Ok", null)
+                        .show();
+            }
+
+            else
+            {
+                new AlertDialog.Builder(Voting.this)
+                        .setTitle("Konfirmasi Pemilihan")
+                        .setMessage("Gagal menyimpan hasil pemilihan. Silahkan coba lagi")
+                        .setPositiveButton("Ok", null)
+                        .show();
+            }
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            List<NameValuePair> args = new ArrayList<NameValuePair>();
+            //idPertanyaan = "1";
+            args.add(new BasicNameValuePair("idUser", idUser));
+            args.add(new BasicNameValuePair("idPilihan", String.valueOf(selectedId)));
+
+            args.add(new BasicNameValuePair("tag", "submit_voting"));
+
+            JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
+            Log.d("CreateResponse", jsonObject.toString());
+
+            try
+            {
+                JSONArray hasil = jsonObject.getJSONArray("items");
+
+                int success = jsonObject.getInt(TAG_SUCCESS);
+                if(success == 1)
+                {
+                    flag = 1;
+                }
+                else flag = 0;
+
+
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+
+
+            return null;
+        }
+    }
 }
