@@ -12,5 +12,6 @@ public class BaseActivity extends AppCompatActivity
 {
     protected JSONParser jsonParser = new JSONParser();
     protected static String urlWebService = "http://xalvsx.esy.es/api/index.php";
+    //protected static String urlWebService = "http://10.0.2.2:8079/Lomba/index.php";
     protected static final String TAG_SUCCESS = "success";
 }

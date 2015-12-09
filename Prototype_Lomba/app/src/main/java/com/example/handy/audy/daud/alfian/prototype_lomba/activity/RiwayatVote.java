@@ -65,7 +65,7 @@ public class RiwayatVote extends AppCompatActivity {
         lvBelum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), HasilVotingActivity.class);
+                Intent i = new Intent(getApplicationContext(), HasilVoting.class);
                 i.putExtra("Riwayat Voting", "Belum");
                 startActivity(i);
             }
@@ -77,7 +77,7 @@ public class RiwayatVote extends AppCompatActivity {
         lvSudah.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), HasilVotingActivity.class);
+                Intent i = new Intent(getApplicationContext(), HasilVoting.class);
                 i.putExtra("Riwayat Voting", "Sudah");
                 startActivity(i);
             }
