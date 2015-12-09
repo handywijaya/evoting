@@ -69,8 +69,9 @@ public class Voting extends BaseActivity {
         setSupportActionBar(toolbar);
 
         idPertanyaan = getIntent().getStringExtra("idPertanyaan");
-        //idPertanyaan = "1";
+        idPertanyaan = "1";
         idUser = getIntent().getStringExtra("idUser");
+        idUser= "1";
         idKtp = getIntent().getStringExtra("idKtp");
         tvPertanyaan = (TextView) findViewById(R.id.tvPertanyaan);
         tvPertanyaan.setText(getIntent().getStringExtra("pertanyaanVoting"));
@@ -311,7 +312,6 @@ public class Voting extends BaseActivity {
 
             try
             {
-                JSONArray hasil = jsonObject.getJSONArray("items");
 
                 int success = jsonObject.getInt(TAG_SUCCESS);
                 if(success == 1)
