@@ -26,7 +26,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.handy.audy.daud.alfian.prototype_lomba.MainActivity;
+import com.example.handy.audy.daud.alfian.prototype_lomba.activity.MainActivity;
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.google.android.gms.gcm.GcmListenerService;
 

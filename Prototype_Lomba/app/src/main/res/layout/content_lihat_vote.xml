@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.handy.audy.daud.alfian.prototype_lomba.LihatVote"
+    tools:context=".activity.LihatVote"
     tools:showIn="@layout/activity_lihat_vote">
 
     <TextView
@@ -34,12 +34,14 @@
         android:layout_below="@+id/btnKembali"
         android:id="@+id/lokasi" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lokasi"
-        android:id="@+id/lvVoting">
 
-    </ListView>
+    <com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rcVoting"
+        android:layout_below="@+id/lokasi">
+
+    </com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView>
+
 
 </RelativeLayout>

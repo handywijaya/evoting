@@ -1,4 +1,4 @@
-package com.example.handy.audy.daud.alfian.prototype_lomba;
+package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -21,6 +21,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.example.handy.audy.daud.alfian.prototype_lomba.R;
+import com.example.handy.audy.daud.alfian.prototype_lomba.jsonparser.JSONParser;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
