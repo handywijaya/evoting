@@ -67,6 +67,7 @@ public class Profile extends BaseActivity {
         {
             noKTP = getIntent().getStringExtra("idKtp");
             idUser = getIntent().getStringExtra("idUser");
+            Log.e("idKtp",noKTP);
 
         }
         catch (Exception ex)
@@ -92,8 +93,6 @@ public class Profile extends BaseActivity {
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
                 finish();
             }
         });
