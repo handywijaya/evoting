@@ -28,34 +28,14 @@
         android:text="Kembali"
         android:layout_below="@+id/judul"/>
 
-    <TextView
+
+
+    <com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Belum berakhir"
-        android:id="@+id/tvBelum"
-        android:layout_below="@+id/btnKembali"/>
+        android:id="@+id/rcVoting"
+        android:layout_below="@+id/btnKembali">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvBelum"
-        android:layout_below="@id/tvBelum">
-
-    </ListView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sudah berakhir"
-        android:id="@+id/tvSudah"
-        android:layout_below="@+id/lvBelum"/>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvSudah"
-        android:layout_below="@id/tvSudah">
-
-    </ListView>
+    </com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView>
 
 </RelativeLayout>

@@ -24,9 +24,12 @@ import android.widget.Toast;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.example.handy.audy.daud.alfian.prototype_lomba.jsonparser.JSONParser;
+import com.example.handy.audy.daud.alfian.prototype_lomba.model.Pilihan;
+import com.example.handy.audy.daud.alfian.prototype_lomba.model.Soal;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -178,6 +181,16 @@ public class BuatVote extends AppCompatActivity {
             }
         });
 
+        btnTambahPilihan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    new TambahPilihan().execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     class InsertPertanyaan extends AsyncTask<String,String,String> {
@@ -185,7 +198,7 @@ public class BuatVote extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(BuatVote.this);
-            pDialog.setMessage("Making Your Account");
+            pDialog.setMessage("Memasukkan pertanyaan");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -193,20 +206,31 @@ public class BuatVote extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
+
             /*List<NameValuePair> args = new ArrayList<NameValuePair>();
-            args.add(new BasicNameValuePair("Username", username));
-            args.add(new BasicNameValuePair("Password", password));
-            args.add(new BasicNameValuePair("tag", "create_user"));
-            JSONObject jsonObject = jsonParser.makeHtppRequest(urlWebService,"POST",args);
-            try{
-                int success = jsonObject.getInt(TAG_SUCCESS);
-                if(success == 1){
-                    flag = 1;
+            args.add(new BasicNameValuePair("tag","get_list_vote_by_id_user"));
+            args.add(new BasicNameValuePair("idUser",idUser));
+            JSONObject jsonObject2 = jsonParser.makeHttpRequest(urlWebService, "POST", args);
+
+            try {
+                success2 = jsonObject2.getInt(TAG_SUCCESS);
+
+                if(success2 == 1) {
+                    JSONArray arraySoal = jsonObject2.getJSONArray("items");
+
+                    for(int i=0; i<arraySoal.length();i++) {
+                        JSONObject c = arraySoal.getJSONObject(i);
+                        Soal s = new Soal();
+                        s.setIdSoal(c.getString("ID_SOAL"));
+                        s.setJudul(c.getString("ISI_SOAL"));
+                        s.setKategori(c.getString("KATEGORI"));
+                        soal.add(s);
+                    }
+                    //simpan data ke list soal
+
                 }
-                else{
-                    flag = 0;
-                }
-            } catch (JSONException e){
+            }
+            catch (JSONException e) {
                 e.printStackTrace();
             }*/
             return null;
@@ -225,4 +249,52 @@ public class BuatVote extends AppCompatActivity {
         }
     }
 
+    class TambahPilihan extends AsyncTask<String,String,String> {
+        int success = 0;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(BuatVote.this);
+            pDialog.setMessage("Menambah Pilihan");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            List<NameValuePair> args = new ArrayList<NameValuePair>();
+            args.add(new BasicNameValuePair("tag","insert_pilihan_jawaban"));
+            //args.add(new BasicNameValuePair("idSoal",idSoal)); // get id soal dulu...
+            //args.add(new BasicNameValuePair("namaPilihan",namaPilihan)); // nama pilihan dari textview
+            //args.add(new BasicNameValuePair("lokasiGambar", lokasiGambar));
+            JSONObject jsonObject2 = jsonParser.makeHttpRequest(urlWebService, "POST", args);
+
+            try{
+                success = jsonObject2.getInt(TAG_SUCCESS);
+                if(success == 1){
+                    flag = 1;
+                }
+                else{
+                    flag = 0;
+                }
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //super.onPostExecute(s);
+            pDialog.dismiss();
+            if(flag == 1){
+                //Toast.makeText(getApplicationContext(), "New Account Successfully Made", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                //Toast.makeText(getApplicationContext(), "Wrong Username or Password", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
