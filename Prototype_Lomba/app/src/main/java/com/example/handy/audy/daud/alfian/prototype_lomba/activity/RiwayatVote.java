@@ -1,6 +1,8 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,20 +15,34 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
+import com.example.handy.audy.daud.alfian.prototype_lomba.adapter.ListRiwayatVoteAdapter;
+import com.example.handy.audy.daud.alfian.prototype_lomba.adapter.ListSoalAdapter;
+import com.example.handy.audy.daud.alfian.prototype_lomba.model.Soal;
+import com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView;
+import com.example.handy.audy.daud.alfian.prototype_lomba.widget.MarginDecoration;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class RiwayatVote extends AppCompatActivity {
+public class RiwayatVote extends BaseActivity implements ListRiwayatVoteAdapter.OnItemClickListener {
 
     Button btnKembali;
     ListView lvBelum, lvSudah;
+    AutofitRecyclerView rcVoting;
+    HashMap<String, String> listPertanyaan;
+    ListRiwayatVoteAdapter adapter;
 
-    List<String> pertanyaanBelum;
-    List<String> idBelum;
+    List<Soal> Soal = new ArrayList<>();
 
-    List<String> pertanyaanSudah;
-    List<String> idSudah;
+    ProgressDialog pDialog;
+    String idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +50,7 @@ public class RiwayatVote extends AppCompatActivity {
         setContentView(R.layout.activity_riwayat_vote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,44 +61,17 @@ public class RiwayatVote extends AppCompatActivity {
             }
         });
 
-        pertanyaanBelum = new ArrayList<>();
-        idBelum = new ArrayList<>();
-        pertanyaanSudah= new ArrayList<>();
-        idSudah = new ArrayList<>();
+        idUser = getIntent().getStringExtra("idUser");
+        idUser = "1";
 
-        int i = 0;
-        for(;i<5;i++) {
-            pertanyaanBelum.add("Pertanyaan " + i);
-            idBelum.add("0000" + i);
-        }
-        for(;i<10;i++) {
-            pertanyaanSudah.add("Pertanyaan " + i);
-            idSudah.add("0000" + i);
-        }
+        rcVoting = (AutofitRecyclerView) findViewById(R.id.rcVoting);
+        rcVoting.setHasFixedSize(true);
+        rcVoting.addItemDecoration(new MarginDecoration(this));
 
-        lvBelum = (ListView) findViewById(R.id.lvBelum);
-        lvBelum.setTextFilterEnabled(true);
-        lvBelum.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pertanyaanBelum));
-        lvBelum.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), HasilVoting.class);
-                i.putExtra("Riwayat Voting", "Belum");
-                startActivity(i);
-            }
-        });
+        adapter = new ListRiwayatVoteAdapter(this);
+        adapter.setOnItemClickListener(this);
 
-        lvSudah = (ListView) findViewById(R.id.lvSudah);
-        lvSudah.setTextFilterEnabled(true);
-        lvSudah.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pertanyaanSudah));
-        lvSudah.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), HasilVoting.class);
-                i.putExtra("Riwayat Voting", "Sudah");
-                startActivity(i);
-            }
-        });
+        rcVoting.setAdapter(adapter);
 
         btnKembali = (Button) findViewById(R.id.btnKembali);
         btnKembali.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +82,71 @@ public class RiwayatVote extends AppCompatActivity {
                 finish();
             }
         });
+
+        new LoadSoal().execute();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent i = new Intent(getApplicationContext(), HasilVoting.class);
+        i.putExtra("idPertanyaan", adapter.getSoalID(position));
+        i.putExtra("pertanyaanVoting", adapter.getSoalName(position));
+        startActivity(i);
+    }
+
+    class LoadSoal extends AsyncTask<String,String,String> {
+        int success2 = 0;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(RiwayatVote.this);
+            pDialog.setMessage("Memuat riwayat vote....");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            List<NameValuePair> args = new ArrayList<NameValuePair>();
+            args.add(new BasicNameValuePair("tag","get_riwayat_vote_user"));
+            args.add(new BasicNameValuePair("idUser",idUser));
+            JSONObject jsonObject2 = jsonParser.makeHttpRequest(urlWebService,"POST",args);
+
+            try {
+                success2 = jsonObject2.getInt(TAG_SUCCESS);
+
+                if(success2 == 1) {
+                    JSONArray arraySoal = jsonObject2.getJSONArray("items");
+
+                    for(int i=0; i<arraySoal.length();i++) {
+                        JSONObject c = arraySoal.getJSONObject(i);
+                        Soal s = new Soal();
+                        s.setIdSoal(c.getString("ID_SOAL"));
+                        s.setJudul(c.getString("ISI_SOAL"));
+                        s.setKategori(c.getString("KATEGORI"));
+                        Soal.add(s);
+                    }
+                    //simpan data ke list soal
+
+                }
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //super.onPostExecute(s);
+            if(success2 == 1) {
+                adapter.setData(Soal);
+                pDialog.dismiss();
+            }
+        }
     }
 
 }

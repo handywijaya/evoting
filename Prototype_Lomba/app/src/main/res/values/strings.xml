@@ -14,5 +14,5 @@
         sending the fetched token to the server or subscribing to the PubSub topic. Please try
         running the sample again.</string>
 
-    <string name="gcm_defaultSenderId">asd</string>
+    <string name="gcm_defaultSenderId">sad</string>
 </resources>

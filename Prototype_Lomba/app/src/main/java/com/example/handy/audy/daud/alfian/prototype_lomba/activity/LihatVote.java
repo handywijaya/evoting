@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class LihatVote extends AppCompatActivity  implements ListSoalAdapter.OnItemClickListener {
+public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemClickListener {
 
     ProgressDialog pDialog;
     AutofitRecyclerView rcVoting;
@@ -45,10 +45,7 @@ public class LihatVote extends AppCompatActivity  implements ListSoalAdapter.OnI
     List<Soal> soal;
     String idUser;
     ListSoalAdapter adapter;
-    JSONParser jsonParser = new JSONParser();
 
-    private final static String TAG_SUCCESS = "success";
-    private static String urlWebService = "http://xalvsx.esy.es/api/index.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +66,7 @@ public class LihatVote extends AppCompatActivity  implements ListSoalAdapter.OnI
         });
 
         idUser = getIntent().getStringExtra("idUser");
+        idUser = "1";
 
         pertanyaanVoting = new ArrayList<String>();
         idVoting = new ArrayList<String>();
