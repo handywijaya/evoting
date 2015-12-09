@@ -2,6 +2,7 @@ package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
@@ -43,9 +45,8 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
     List<String> pertanyaanVoting;
     List<String> idVoting;
     List<Soal> soal;
-    String idUser;
+    String idKtp,idUser;
     ListSoalAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
         });
 
         idUser = getIntent().getStringExtra("idUser");
-        idUser = "1";
+        idKtp = getIntent().getStringExtra("idKtp");
 
         pertanyaanVoting = new ArrayList<String>();
         idVoting = new ArrayList<String>();
@@ -89,8 +90,6 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
                 finish();
             }
         });
@@ -113,7 +112,7 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(LihatVote.this);
-            pDialog.setMessage("Memuat list....");
+            pDialog.setMessage("Memuat daftar....");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -123,8 +122,8 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
         protected String doInBackground(String... params) {
 
             List<NameValuePair> args = new ArrayList<NameValuePair>();
-            args.add(new BasicNameValuePair("tag","get_list_vote_by_id_user"));
-            args.add(new BasicNameValuePair("idUser",idUser));
+            args.add(new BasicNameValuePair("tag", "get_list_vote_by_id_user"));
+            args.add(new BasicNameValuePair("idUser", idKtp));
             JSONObject jsonObject2 = jsonParser.makeHttpRequest(urlWebService,"POST",args);
 
             try {
@@ -157,6 +156,14 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
             if(success2 == 1) {
                 adapter.setData(soal);
                 pDialog.dismiss();
+            }
+            else {
+                pDialog.dismiss();
+                TextView a = (TextView)findViewById(R.id.txtError);
+                a.setTextSize(20);
+                a.setText("Tidak ada pemilu untuk saat ini.");
+                a.setVisibility(View.VISIBLE);
+                rcVoting.setVisibility(View.GONE);
             }
         }
     }

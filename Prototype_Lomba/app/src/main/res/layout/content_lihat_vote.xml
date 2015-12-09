@@ -30,16 +30,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kota: Semarang"
-        android:layout_below="@+id/btnKembali"
-        android:id="@+id/lokasi" />
-
+        android:layout_below="@id/btnKembali"
+        android:visibility="gone"
+        android:id="@+id/txtError"/>
 
     <com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rcVoting"
-        android:layout_below="@+id/lokasi">
+        android:layout_below="@+id/btnKembali">
 
     </com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView>
 
