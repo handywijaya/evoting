@@ -74,6 +74,7 @@ public class BuatVote extends AppCompatActivity {
     Object theActivity;
     ArrayAdapter<Enum> spinAdapter;
     List<Enum> spinnerArray;
+    DatePickerDialog dMulai, dSelesai;
 
     private void updateLabelMulai() {
         String myFormat = "yyyy-MM-dd";
@@ -138,29 +139,11 @@ public class BuatVote extends AppCompatActivity {
             }
         };
 
-        //buat ambil state keyboard buka/tutup
-        /*final RelativeLayout layout = (RelativeLayout) findViewById(R.id.layout);
-        layout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                //r will be populated with the coordinates of your view that area still visible.
-                layout.getWindowVisibleDisplayFrame(r);
-
-                int heightDiff = layout.getRootView().getHeight() - (r.bottom - r.top);
-                if (heightDiff > 100) { // if more than 100 pixels, its probably a keyboard...
-                    flagKeyboard = 1;
-                }
-                else {
-                    flagKeyboard = 0;
-                }
-            }
-        });*/
-
         txtPertanyaan = (EditText) findViewById(R.id.txtPertanyaan);
 
         txtTanggalMulai = (EditText) findViewById(R.id.txtTanggalMulai);
         txtTanggalMulai.setInputType(InputType.TYPE_NULL);
+        dMulai = new DatePickerDialog(BuatVote.this, tanggalMulai, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         //soft keyboard
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         txtTanggalMulai.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -168,19 +151,20 @@ public class BuatVote extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    new DatePickerDialog(BuatVote.this, tanggalMulai, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                    dMulai.show();
                 }
             }
         });
 
         txtTanggalSelesai = (EditText) findViewById(R.id.txtTanggalSelesai);
         txtTanggalSelesai.setInputType(InputType.TYPE_NULL);
+        dSelesai = new DatePickerDialog(BuatVote.this, tanggalSelesai, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         txtTanggalSelesai.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    new DatePickerDialog(BuatVote.this, tanggalSelesai, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                    dSelesai.show();
                 }
             }
         });
@@ -257,9 +241,9 @@ public class BuatVote extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(BuatVote.this);
-            pDialog.setMessage("Memasukkan pertanyaan baru");
+            pDialog.setMessage("Memasukkan pertanyaan baru...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
 
@@ -319,9 +303,9 @@ public class BuatVote extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(BuatVote.this);
-            pDialog.setMessage("Memasukkan pertanyaan baru");
+            pDialog.setMessage("Memuat formulir...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
 
