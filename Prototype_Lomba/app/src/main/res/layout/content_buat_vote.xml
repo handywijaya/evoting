@@ -79,6 +79,27 @@
 
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kategori" />
+        </TableRow>
+
+        <TableRow
+            android:paddingStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spnKategori" />
+        </TableRow>
+
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
@@ -88,38 +109,11 @@
 
         <TableRow
             android:paddingStart="10dp">
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:singleLine="false"
-                android:hint="Pilihan 1"
-                android:id="@+id/txtPilihan1"/>
 
-            <Button
-                android:layout_width="0dip"
+            <ListView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Tambah Gambar 1"
-                android:id="@+id/btnGambar1"/>
-        </TableRow>
-
-        <TableRow
-            android:paddingStart="10dp">
-            <EditText
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:singleLine="false"
-                android:hint="Pilihan 2"
-                android:id="@+id/txtPilihan2"/>
-
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Tambah Gambar 2"
-                android:id="@+id/btnGambar2"/>
+                android:id="@+id/lviPilihan" />
         </TableRow>
 
         <TableRow

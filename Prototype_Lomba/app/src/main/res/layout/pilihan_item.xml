@@ -20,12 +20,6 @@
                 android:hint="Pilihan"
                 android:id="@+id/txtPilihan"/>
 
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Tambah Gambar"
-                android:id="@+id/btnGambar"/>
         </TableRow>
 
     </TableLayout>

@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -16,13 +17,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
+import com.example.handy.audy.daud.alfian.prototype_lomba.adapter.ListPilihanAdapter;
 import com.example.handy.audy.daud.alfian.prototype_lomba.jsonparser.JSONParser;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.Pilihan;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.Soal;
@@ -44,14 +50,22 @@ public class BuatVote extends AppCompatActivity {
 
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
-    private static String urlWebService = "http://xalvsx.esy.es/api/index.php";
+    //private static String urlWebService = "http://xalvsx.esy.es/api/index.php";
+    private static String urlWebService = "http://10.0.2.2:81/Lomba/index.php";
     private static final String TAG_SUCCESS = "success";
+    private static final String TAG_ITEMS = "items";
     private int flag = 0;
 
-    EditText txtPertanyaan, txtPilihan1, txtPilihan2, txtTanggalMulai, txtTanggalSelesai;
-    Button btnGambar1, btnGambar2, btnTambahPilihan, btnKembali, btnKirim;
+    EditText txtPertanyaan, txtTanggalMulai, txtTanggalSelesai;
+    Button btnTambahPilihan, btnKembali, btnKirim;
+    ListView lviPilihan;
     int flagKeyboard = 0;
     Calendar calendar = Calendar.getInstance();
+    List<Pilihan> pilihan;
+    ListPilihanAdapter adapter;
+    List<String> namaPilihan;
+    String isiSoal, tanggalMulaiString, tanggalSelesaiString, idPembuat;
+    Spinner spnKategori;
 
     private void updateLabelMulai() {
         String myFormat = "dd-MM-yyyy";
@@ -71,6 +85,15 @@ public class BuatVote extends AppCompatActivity {
         setContentView(R.layout.activity_buat_vote);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        pilihan = new ArrayList<Pilihan>();
+        namaPilihan = new ArrayList<String>();
+        idPembuat = "1";
+
+        spnKategori = (Spinner)findViewById(R.id.spnKategori);
+        ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, spinnerArray);
+        spnKategori.setAdapter(spinAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -120,9 +143,9 @@ public class BuatVote extends AppCompatActivity {
             }
         });*/
 
+        lviPilihan = (ListView)findViewById(R.id.lviPilihan);
+
         txtPertanyaan = (EditText) findViewById(R.id.txtPertanyaan);
-        txtPilihan1 = (EditText) findViewById(R.id.txtPilihan1);
-        txtPilihan2 = (EditText) findViewById(R.id.txtPilihan2);
 
         txtTanggalMulai = (EditText) findViewById(R.id.txtTanggalMulai);
         txtTanggalMulai.setInputType(InputType.TYPE_NULL);
@@ -150,8 +173,6 @@ public class BuatVote extends AppCompatActivity {
             }
         });
 
-        btnGambar1 = (Button) findViewById(R.id.btnGambar1);
-        btnGambar2 = (Button) findViewById(R.id.btnGambar2);
         btnTambahPilihan = (Button) findViewById(R.id.btnTambahPilihan);
         btnKembali = (Button) findViewById(R.id.btnKembali);
         btnKirim = (Button) findViewById(R.id.btnKirim);
@@ -168,13 +189,18 @@ public class BuatVote extends AppCompatActivity {
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pertanyaan = txtPertanyaan.getText().toString();
-                String pilihan1 = txtPilihan1.getText().toString();
-                String pilihan2 = txtPilihan2.getText().toString();
-                String mulai = txtTanggalMulai.getText().toString();
-                String selesai = txtTanggalSelesai.getText().toString();
+                isiSoal = txtPertanyaan.getText().toString();
 
-                if(!pertanyaan.trim().equals("") && !pilihan1.trim().equals("") && !pilihan2.trim().equals("") && !mulai.trim().equals("") && !selesai.trim().equals("")) {
+                // Ambil semua pilihan di sini
+                namaPilihan.clear();
+                for(int i=0; i<adapter.getCount(); i++){
+                    namaPilihan.add(((TextView)adapter.getItem(i)).getText().toString());
+                }
+
+                tanggalMulaiString = txtTanggalMulai.getText().toString();
+                tanggalSelesaiString = txtTanggalSelesai.getText().toString();
+
+                if(!isiSoal.trim().equals("") && !tanggalMulaiString.trim().equals("") && !tanggalSelesaiString.trim().equals("")) {
                     new InsertPertanyaan().execute();
                     Snackbar.make(v, "Pertanyaan terkirim", Snackbar.LENGTH_SHORT).show();
                 }
@@ -185,7 +211,14 @@ public class BuatVote extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    new TambahPilihan().execute();
+                    Pilihan p = new Pilihan();
+                    p.setIdPilihan("");
+                    p.setIdSoal("");
+                    p.setNamaPilihan("");
+                    pilihan.add(p);
+
+                    adapter = new ListPilihanAdapter(getApplicationContext(), pilihan);
+                    lviPilihan.setAdapter(adapter);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -194,11 +227,13 @@ public class BuatVote extends AppCompatActivity {
     }
 
     class InsertPertanyaan extends AsyncTask<String,String,String> {
+        int success, success2 = 0;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(BuatVote.this);
-            pDialog.setMessage("Memasukkan pertanyaan");
+            pDialog.setMessage("Memasukkan pertanyaan baru");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -207,79 +242,32 @@ public class BuatVote extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            /*List<NameValuePair> args = new ArrayList<NameValuePair>();
-            args.add(new BasicNameValuePair("tag","get_list_vote_by_id_user"));
-            args.add(new BasicNameValuePair("idUser",idUser));
-            JSONObject jsonObject2 = jsonParser.makeHttpRequest(urlWebService, "POST", args);
+            List<NameValuePair> args = new ArrayList<NameValuePair>();
+            args.add(new BasicNameValuePair("tag","create_voting"));
+            args.add(new BasicNameValuePair("isiSoal",isiSoal));
+            //args.add(new BasicNameValuePair("kategori",idUser));
+            args.add(new BasicNameValuePair("idPembuat", idPembuat));
+            args.add(new BasicNameValuePair("tanggal_mulai",tanggalMulaiString));
+            args.add(new BasicNameValuePair("tanggal_selesai", tanggalSelesaiString));
+            //args.add(new BasicNameValuePair("channel", idUser));
+            JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
 
             try {
-                success2 = jsonObject2.getInt(TAG_SUCCESS);
+                success = jsonObject.getInt(TAG_SUCCESS);
 
-                if(success2 == 1) {
-                    JSONArray arraySoal = jsonObject2.getJSONArray("items");
-
-                    for(int i=0; i<arraySoal.length();i++) {
-                        JSONObject c = arraySoal.getJSONObject(i);
-                        Soal s = new Soal();
-                        s.setIdSoal(c.getString("ID_SOAL"));
-                        s.setJudul(c.getString("ISI_SOAL"));
-                        s.setKategori(c.getString("KATEGORI"));
-                        soal.add(s);
+                if(success == 1) {
+                    JSONObject jsonObject2;
+                    for(int i=0; i<namaPilihan.size(); i++){
+                        args = new ArrayList<NameValuePair>();
+                        args.add(new BasicNameValuePair("tag","insert_pilihan_jawaban"));
+                        args.add(new BasicNameValuePair("idSoal",jsonObject.getString(TAG_ITEMS)));
+                        args.add(new BasicNameValuePair("namaPilihan",namaPilihan.get(i)));
+                        jsonObject2 = jsonParser.makeHttpRequest(urlWebService, "POST", args);
+                        success2 = jsonObject2.getInt(TAG_SUCCESS);
                     }
-                    //simpan data ke list soal
-
                 }
             }
             catch (JSONException e) {
-                e.printStackTrace();
-            }*/
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            //super.onPostExecute(s);
-            pDialog.dismiss();
-            if(flag == 1){
-                //Toast.makeText(getApplicationContext(), "New Account Successfully Made", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                //Toast.makeText(getApplicationContext(), "Wrong Username or Password", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    class TambahPilihan extends AsyncTask<String,String,String> {
-        int success = 0;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(BuatVote.this);
-            pDialog.setMessage("Menambah Pilihan");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            List<NameValuePair> args = new ArrayList<NameValuePair>();
-            args.add(new BasicNameValuePair("tag","insert_pilihan_jawaban"));
-            args.add(new BasicNameValuePair("idSoal",idSoal)); // get id soal dulu...
-            args.add(new BasicNameValuePair("namaPilihan",namaPilihan)); // nama pilihan dari textview
-            args.add(new BasicNameValuePair("lokasiGambar", lokasiGambar));
-            JSONObject jsonObject2 = jsonParser.makeHttpRequest(urlWebService, "POST", args);
-
-            try{
-                success = jsonObject2.getInt(TAG_SUCCESS);
-                if(success == 1){
-                    flag = 1;
-                }
-                else{
-                    flag = 0;
-                }
-            } catch (JSONException e){
                 e.printStackTrace();
             }
             return null;

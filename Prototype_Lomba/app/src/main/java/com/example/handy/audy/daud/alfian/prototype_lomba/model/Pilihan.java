@@ -7,7 +7,6 @@ public class Pilihan {
     private String idPilihan;
     private String idSoal;
     private String namaPilihan;
-    private String lokasiGambar;
 
 
     public String getIdPilihan() {
@@ -32,13 +31,5 @@ public class Pilihan {
 
     public void setNamaPilihan(String namaPilihan) {
         this.namaPilihan = namaPilihan;
-    }
-
-    public String getLokasiGambar() {
-        return lokasiGambar;
-    }
-
-    public void setLokasiGambar(String lokasiGambar) {
-        this.lokasiGambar = lokasiGambar;
     }
 }

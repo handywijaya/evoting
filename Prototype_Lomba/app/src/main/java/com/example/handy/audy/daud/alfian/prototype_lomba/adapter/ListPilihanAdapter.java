@@ -22,6 +22,7 @@ public class ListPilihanAdapter extends BaseAdapter {
 
     private Context context;
     List<Pilihan> pilihan;
+    TextView txtPilihan;
 
     public ListPilihanAdapter(Context context, List<Pilihan> pilihan) {
         this.context = context;
@@ -35,7 +36,7 @@ public class ListPilihanAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return txtPilihan;
     }
 
     @Override
@@ -56,19 +57,11 @@ public class ListPilihanAdapter extends BaseAdapter {
         Pilihan p = pilihan.get(position);
 
         if (p != null) {
-            TextView txtPilihan = (TextView) v.findViewById(R.id.txtPilihan);
-            Button btnGambar = (Button) v.findViewById(R.id.btnGambar);
+            txtPilihan = (TextView) v.findViewById(R.id.txtPilihan);
 
             if (txtPilihan != null) {
                 txtPilihan.setText(p.getNamaPilihan());
             }
-
-            btnGambar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Masukan gambar di sini...
-                }
-            });
         }
 
         return v;
