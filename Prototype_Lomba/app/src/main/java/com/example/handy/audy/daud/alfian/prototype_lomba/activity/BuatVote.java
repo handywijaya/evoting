@@ -199,8 +199,16 @@ public class BuatVote extends AppCompatActivity {
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int flag = 0;
                 isiSoal = txtPertanyaan.getText().toString();
-                kategori = spnKategori.getSelectedItem().toString();
+                if(spnKategori.getSelectedItem() == null){
+                    flag = 1;
+                }
+                else{
+                    kategori = spnKategori.getSelectedItem().toString();
+                }
+                tanggalMulaiString = txtTanggalMulai.getText().toString();
+                tanggalSelesaiString = txtTanggalSelesai.getText().toString();
 
                 // Ambil semua pilihan di sini
                 namaPilihan.clear();
@@ -210,12 +218,19 @@ public class BuatVote extends AppCompatActivity {
                         namaPilihan.add(((EditText) child).getText().toString());
                     }
                 }
-
-                tanggalMulaiString = txtTanggalMulai.getText().toString();
-                tanggalSelesaiString = txtTanggalSelesai.getText().toString();
-
-                if(!isiSoal.trim().equals("") && !tanggalMulaiString.trim().equals("") && !tanggalSelesaiString.trim().equals("")) {
-                    new InsertPertanyaan().execute();
+                if(namaPilihan.size() < 2){
+                    flag = 2;
+                }
+                if(flag == 1){
+                    Toast.makeText(BuatVote.this, "Tolong pilih kategori dari pertanyaan.", Toast.LENGTH_SHORT).show();
+                }
+                else if(flag == 2){
+                    Toast.makeText(BuatVote.this, "Jumlah pilihan minimum adalah 2(dua). Tolong tambah jumlah pilihan.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if(!isiSoal.trim().equals("") && !tanggalMulaiString.trim().equals("") && !tanggalSelesaiString.trim().equals("")) {
+                        new InsertPertanyaan().execute();
+                    }
                 }
             }
         });

@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity {
                 success2 = jsonObject2.getInt(TAG_SUCCESS);
 
                 if(success2 == 1) {
-                    idUser = jsonObject2.getString("userId");
+                    idUser = jsonObject2.getString("idUser");
                 }
             }
             catch (JSONException e) {
