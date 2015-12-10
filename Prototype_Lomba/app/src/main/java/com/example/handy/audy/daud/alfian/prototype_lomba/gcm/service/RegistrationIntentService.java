@@ -33,14 +33,24 @@ import java.io.IOException;
 public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
-    private static final String[] TOPICS = {"global"};
+    private static String[] TOPICS = {"global"};
 
     public RegistrationIntentService() {
         super(TAG);
     }
 
+    public static String[] getTOPICS() {
+        return TOPICS;
+    }
+
+    public static void setTOPICS(String[] TOPICS) {
+        RegistrationIntentService.TOPICS = TOPICS;
+    }
+
     @Override
     protected void onHandleIntent(Intent intent) {
+        setTOPICS(intent.getStringArrayExtra("topics"));
+        //android.os.Debug.waitForDebugger();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         try {
@@ -74,8 +84,10 @@ public class RegistrationIntentService extends IntentService {
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
-        Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
+        //Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);
+        Intent registrationComplete = new Intent("registrationComplete");
+        //LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(registrationComplete);
+        sendBroadcast(registrationComplete);
     }
 
     /**
@@ -99,7 +111,7 @@ public class RegistrationIntentService extends IntentService {
     // [START subscribe_topics]
     private void subscribeTopics(String token) throws IOException {
         GcmPubSub pubSub = GcmPubSub.getInstance(this);
-        for (String topic : TOPICS) {
+        for (String topic : getTOPICS()) {
             pubSub.subscribe(token, "/topics/" + topic, null);
         }
     }

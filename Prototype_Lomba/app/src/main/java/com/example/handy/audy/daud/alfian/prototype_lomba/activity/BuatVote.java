@@ -35,6 +35,7 @@ import com.example.handy.audy.daud.alfian.prototype_lomba.enumeration.KategoriEn
 import com.example.handy.audy.daud.alfian.prototype_lomba.enumeration.KategoriEnumLurah;
 import com.example.handy.audy.daud.alfian.prototype_lomba.enumeration.KategoriEnumRT;
 import com.example.handy.audy.daud.alfian.prototype_lomba.enumeration.KategoriEnumRW;
+import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.GcmSender;
 import com.example.handy.audy.daud.alfian.prototype_lomba.jsonparser.JSONParser;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.Soal;
 
@@ -52,14 +53,12 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class BuatVote extends AppCompatActivity {
+public class BuatVote extends BaseActivity {
 
 
     private ProgressDialog pDialog;
-    JSONParser jsonParser = new JSONParser();
-    private static String urlWebService = "http://xalvsx.esy.es/api/index.php";
-    private static final String TAG_SUCCESS = "success";
     private static final String TAG_ITEMS = "items";
+    private static final String TAG_CHANNEL = "channel";
     private int flag = 0;
 
     EditText txtPertanyaan, txtTanggalMulai, txtTanggalSelesai;
@@ -74,6 +73,7 @@ public class BuatVote extends AppCompatActivity {
     ArrayAdapter<Enum> spinAdapter;
     List<Enum> spinnerArray;
     DatePickerDialog dMulai, dSelesai;
+    JSONObject jsonObject;
 
     private void updateLabelMulai() {
         String myFormat = "yyyy-MM-dd";
@@ -246,7 +246,7 @@ public class BuatVote extends AppCompatActivity {
                 args.add(new BasicNameValuePair("tanggal_selesai", tanggalSelesaiString));
                 args.add(new BasicNameValuePair("idKtp", idKtp));
                 args.add(new BasicNameValuePair("kategori",kategori.toLowerCase()));
-                JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
+                jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
 
                 success = jsonObject.getInt(TAG_SUCCESS);
 
@@ -260,6 +260,11 @@ public class BuatVote extends AppCompatActivity {
                         jsonObject2 = jsonParser.makeHttpRequest(urlWebService, "POST", args);
                         success2 = jsonObject2.getInt(TAG_SUCCESS);
                     }
+                    GcmSender sender = new GcmSender();
+                    sender.sendNotification(jsonObject.getString(TAG_CHANNEL),
+                            "Terdapat pemilihan baru yang dapat dipilih. Sentuh untuk memilih sekarang!",
+                            "Aplikasi E-Voting",
+                            jsonObject.getString(TAG_ITEMS));
                 }
             }
             catch (JSONException e) {
@@ -276,6 +281,7 @@ public class BuatVote extends AppCompatActivity {
             pDialog.dismiss();
             if(success2 == 1){
                 Toast.makeText(getApplicationContext(), "Pertanyaan terkirim", Toast.LENGTH_SHORT).show();
+                finish();
             }
             else{
                 Toast.makeText(getApplicationContext(), "Pertanyaan gagal terkirim", Toast.LENGTH_SHORT).show();
