@@ -34,13 +34,13 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Buat Voting Baru"
+                android:text="Buat Pemilu Baru"
                 android:id="@+id/btnVotingBaru" />
             <Button
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Lihat Pilihan Voting"
+                android:text="Lihat Pilihan Pemilu"
                 android:id="@+id/btnLihatVote" />
 
         </TableRow>
@@ -52,7 +52,7 @@
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Riwayat Voting"
+                android:text="Riwayat Pemilu"
                 android:id="@+id/btnRiwayatVoting" />
             <Button
                 android:layout_width="0dip"

@@ -95,14 +95,14 @@ public class BuatVote extends BaseActivity {
         setSupportActionBar(toolbar);
 
         layoutPilihan = (LinearLayout)findViewById(R.id.layoutPilihan);
-        namaPilihan = new ArrayList<String>();
+        namaPilihan = new ArrayList<>();
         idKtp = getIntent().getStringExtra("idKtp");
         idPembuat = getIntent().getStringExtra("idUser");
         theActivity = this;
 
         spnKategori = (Spinner)findViewById(R.id.spnKategori);
-        spinnerArray = new ArrayList<Enum>();
-        spinAdapter = new ArrayAdapter<Enum>(this,android.R.layout.simple_list_item_1,spinnerArray);
+        spinnerArray = new ArrayList<>();
+        spinAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,spinnerArray);
         spnKategori.setAdapter(spinAdapter);
 
         new checkLevel().execute(); // Buat ngecek level dan nentuin enum yang mau dipakai
@@ -213,6 +213,7 @@ public class BuatVote extends BaseActivity {
                 try {
                     EditText txtPilihan = new EditText(BuatVote.this);
                     txtPilihan.setHint("Pilihan");
+                    txtPilihan.setSingleLine(true);
                     txtPilihan.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     layoutPilihan.addView(txtPilihan);
                 } catch (Exception e) {
@@ -238,7 +239,7 @@ public class BuatVote extends BaseActivity {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                List<NameValuePair> args = new ArrayList<NameValuePair>();
+                List<NameValuePair> args = new ArrayList<>();
                 args.add(new BasicNameValuePair("tag","create_voting"));
                 args.add(new BasicNameValuePair("isiSoal",isiSoal));
                 args.add(new BasicNameValuePair("idPembuat", idPembuat));
@@ -253,7 +254,7 @@ public class BuatVote extends BaseActivity {
                 if(success == 1) {
                     JSONObject jsonObject2;
                     for(int i=0; i<namaPilihan.size(); i++){
-                        args = new ArrayList<NameValuePair>();
+                        args = new ArrayList<>();
                         args.add(new BasicNameValuePair("tag","insert_pilihan_jawaban"));
                         args.add(new BasicNameValuePair("idSoal",jsonObject.getString(TAG_ITEMS)));
                         args.add(new BasicNameValuePair("namaPilihan",namaPilihan.get(i)));
@@ -267,9 +268,7 @@ public class BuatVote extends BaseActivity {
                             jsonObject.getString(TAG_ITEMS));
                 }
             }
-            catch (JSONException e) {
-                e.printStackTrace();
-            } catch (Exception e){
+            catch (Exception e){
                 e.printStackTrace();
             }
             return null;
@@ -305,7 +304,7 @@ public class BuatVote extends BaseActivity {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                List<NameValuePair> args = new ArrayList<NameValuePair>();
+                List<NameValuePair> args = new ArrayList<>();
                 args.add(new BasicNameValuePair("tag","get_level"));
                 args.add(new BasicNameValuePair("idUser",idPembuat));
                 JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
@@ -318,9 +317,7 @@ public class BuatVote extends BaseActivity {
 
 
             }
-            catch (JSONException e) {
-                e.printStackTrace();
-            } catch (Exception e){
+            catch (Exception e){
                 e.printStackTrace();
             }
             return null;

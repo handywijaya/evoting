@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.example.handy.audy.daud.alfian.prototype_lomba.adapter.ListRiwayatVoteAdapter;
@@ -130,8 +131,11 @@ public class RiwayatVote extends BaseActivity implements ListRiwayatVoteAdapter.
             //super.onPostExecute(s);
             if(success2 == 1) {
                 adapter.setData(Soal);
-                pDialog.dismiss();
             }
+            else {
+                Toast.makeText(RiwayatVote.this, "Anda belum memiliki riwayat pemilu", Toast.LENGTH_SHORT).show();
+            }
+            pDialog.dismiss();
         }
     }
 

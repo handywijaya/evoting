@@ -243,7 +243,9 @@ public class Voting extends BaseActivity {
 
         private String readText(NdefRecord record) throws UnsupportedEncodingException {
             byte[] payload = record.getPayload();
-            String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
+            String a = "UTF-8";
+            String b = "UTF-16";
+            String textEncoding = ((payload[0] & 128) == 0) ? a : b;
             int languageCodeLength = payload[0] & 0063;
 
             return new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
@@ -298,7 +300,7 @@ public class Voting extends BaseActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            List<NameValuePair> args = new ArrayList<NameValuePair>();
+            List<NameValuePair> args = new ArrayList<>();
             args.add(new BasicNameValuePair("idPertanyaan", idPertanyaan));
             args.add(new BasicNameValuePair("tag", "get_pertanyaan"));
 
@@ -316,7 +318,7 @@ public class Voting extends BaseActivity {
 
                     soal = p.getString(TAG_ISISOAL);
 
-                    List<NameValuePair> argsPilihan = new ArrayList<NameValuePair>();
+                    List<NameValuePair> argsPilihan = new ArrayList<>();
 
                     argsPilihan.add(new BasicNameValuePair("idPertanyaan", idPertanyaan));
                     argsPilihan.add(new BasicNameValuePair("tag", "get_pilihan_jawaban"));
@@ -337,7 +339,7 @@ public class Voting extends BaseActivity {
                                 JSONObject c = pilihanJawaban.getJSONObject(i);
                                 String idPilihan = c.getString(TAG_IDPILIHAN);
                                 String namaPilihan = c.getString(TAG_NAMAPILIHAN);
-                                HashMap<String, String> map = new HashMap<String,String>();
+                                HashMap<String, String> map = new HashMap<>();
                                 map.put(TAG_IDPILIHAN, idPilihan);
                                 map.put(TAG_NAMAPILIHAN, namaPilihan);
                                 pilihanVoting.add(map);
@@ -434,6 +436,7 @@ public class Voting extends BaseActivity {
     }
 
 
+    static boolean isFinish = false;
     class SubmitJawaban extends AsyncTask<String, String, String>
     {
         int flag = 0;
@@ -459,11 +462,7 @@ public class Voting extends BaseActivity {
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent i = new Intent(getApplicationContext(),LihatVote.class);
-                                i.putExtra("idKtp", idKtp);
-                                i.putExtra("idUser", idUser);
-                                startActivity(i);
-                                finish();
+                                dialog.dismiss();
                             }
                         })
                         .setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -472,7 +471,10 @@ public class Voting extends BaseActivity {
                                 Intent i = new Intent(getApplicationContext(),LihatVote.class);
                                 i.putExtra("idKtp", idKtp);
                                 i.putExtra("idUser", idUser);
-                                startActivity(i);
+                                if(!isFinish) {
+                                    isFinish = false;
+                                    startActivity(i);
+                                }
                                 finish();
                             }
                         })
@@ -492,7 +494,7 @@ public class Voting extends BaseActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            List<NameValuePair> args = new ArrayList<NameValuePair>();
+            List<NameValuePair> args = new ArrayList<>();
             //idPertanyaan = "1";
             args.add(new BasicNameValuePair("idUser", idUser));
             args.add(new BasicNameValuePair("idSoal", idPertanyaan));
