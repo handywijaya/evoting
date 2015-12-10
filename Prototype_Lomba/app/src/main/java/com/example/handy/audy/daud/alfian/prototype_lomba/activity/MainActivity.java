@@ -14,6 +14,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
+import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.MyGcmListenerService;
+import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.MyInstanceIDListenerService;
+import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.RegistrationIntentService;
 
 public class MainActivity extends BaseActivity {
 
@@ -104,6 +107,11 @@ public class MainActivity extends BaseActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("logged_in",false);
                 editor.commit();
+
+                stopService(new Intent(getApplicationContext(), RegistrationIntentService.class));
+                stopService(new Intent(getApplicationContext(), MyGcmListenerService.class));
+                stopService(new Intent(getApplicationContext(), MyInstanceIDListenerService.class));
+
                 Intent i = new Intent(getApplicationContext(),StartActivity.class);
                 startActivity(i);
                 finish();
