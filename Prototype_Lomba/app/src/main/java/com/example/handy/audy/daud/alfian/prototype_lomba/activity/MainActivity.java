@@ -32,6 +32,9 @@ public class MainActivity extends BaseActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        idUser = getIntent().getStringExtra("idUser");
+        idKtp = getIntent().getStringExtra("idKtp");
+
         if(getIntent().getStringExtra("idSoal") != null) { //buat nangkep notif, kirim aja extra idSoal di intentnya, supaya di redirect ke Voting langsung
             String idSoal = getIntent().getStringExtra("idSoal");
             boolean logged_in = sharedPreferences.getBoolean("logged_in", false);
@@ -52,9 +55,6 @@ public class MainActivity extends BaseActivity {
                 finish();
             }
         }
-
-        idUser = getIntent().getStringExtra("idUser");
-        idKtp = getIntent().getStringExtra("idKtp");
 
         btnBuatVote = (Button) findViewById(R.id.btnVotingBaru);
         btnBuatVote.setOnClickListener(new View.OnClickListener() {

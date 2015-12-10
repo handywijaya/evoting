@@ -96,6 +96,8 @@ public class Voting extends BaseActivity {
         idKtp = getIntent().getStringExtra("idKtp");
         tvPertanyaan = (TextView) findViewById(R.id.tvPertanyaan);
         tvPertanyaan.setText(getIntent().getStringExtra("pertanyaanVoting"));
+        Log.e("idUser",idUser);
+        Log.e("idKtp",idKtp);
 
         rg = new RadioGroup(this);
         rg.setOrientation(LinearLayout.VERTICAL);
