@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">Prototype_Lomba</string>
+    <string name="app_name">E-Voting</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_buat_vote">BuatVote</string>
-    <string name="title_activity_lihat_vote">LihatVote</string>
-    <string name="title_activity_riwayat_vote">RiwayatVote</string>
-    <string name="title_activity_profile">Profile</string>
-    <string name="title_activity_voting">Voting</string>
-    <string name="title_activity_hasil_voting">HasilVoting</string>
+    <string name="title_activity_buat_vote">BuatPemilu</string>
+    <string name="title_activity_lihat_vote">LihatPemilu</string>
+    <string name="title_activity_riwayat_vote">RiwayatPemilu</string>
+    <string name="title_activity_profile">Profil</string>
+    <string name="title_activity_voting">Pemilu</string>
+    <string name="title_activity_hasil_voting">HasiPemilu</string>
     <string name="gcm_send_message">Token retrieved and sent to server! You can now use gcmsender to
         send downstream messages to this app.</string>
     <string name="registering_message">Generating InstanceID token...</string>
     <string name="token_error_message">An error occurred while either fetching the InstanceID token,
         sending the fetched token to the server or subscribing to the PubSub topic. Please try
         running the sample again.</string>
-    <string name="title_activity_start">StartActivity</string>
-    <string name="title_activity_buat_user">BuatUserActivity</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_start">HalamanAwal</string>
+    <string name="title_activity_buat_user">BuatUser</string>
+    <string name="title_activity_login">Masuk</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

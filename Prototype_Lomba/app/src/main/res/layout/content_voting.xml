@@ -15,10 +15,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VOTING SEKARANG"
+        android:text="PILIH SEKARANG"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@id/judul"
+        android:id="@+id/judul"
         style="@style/Judul2" />
 
     <TextView
