@@ -53,13 +53,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class BuatVote extends AppCompatActivity {
+public class BuatVote extends BaseActivity {
 
 
     private ProgressDialog pDialog;
-    JSONParser jsonParser = new JSONParser();
-    private static String urlWebService = "http://xalvsx.esy.es/api/index.php";
-    private static final String TAG_SUCCESS = "success";
     private static final String TAG_ITEMS = "items";
     private static final String TAG_CHANNEL = "channel";
     private int flag = 0;
