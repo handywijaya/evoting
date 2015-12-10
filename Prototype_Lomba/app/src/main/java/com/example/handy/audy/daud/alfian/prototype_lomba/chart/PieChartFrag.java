@@ -1,12 +1,10 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.chart;
 
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;

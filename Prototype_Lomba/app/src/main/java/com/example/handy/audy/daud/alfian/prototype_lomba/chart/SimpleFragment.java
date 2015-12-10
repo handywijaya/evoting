@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.HasilVoting;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.PilihanJawaban;
-import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -20,8 +19,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.ScatterData;
-import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.FileUtils;

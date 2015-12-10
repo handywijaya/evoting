@@ -3,12 +3,9 @@ package com.example.handy.audy.daud.alfian.prototype_lomba.chart;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.HasilVoting;
@@ -19,7 +16,6 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.formatter.YAxisValueFormatter;
-import com.github.mikephil.charting.listener.ChartTouchListener;
 
 import java.util.List;
 
