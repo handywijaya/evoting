@@ -434,6 +434,7 @@ public class Voting extends BaseActivity {
     }
 
 
+    static boolean isFinish = false;
     class SubmitJawaban extends AsyncTask<String, String, String>
     {
         int flag = 0;
@@ -459,11 +460,7 @@ public class Voting extends BaseActivity {
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent i = new Intent(getApplicationContext(),LihatVote.class);
-                                i.putExtra("idKtp", idKtp);
-                                i.putExtra("idUser", idUser);
-                                startActivity(i);
-                                finish();
+                                
                             }
                         })
                         .setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -472,7 +469,10 @@ public class Voting extends BaseActivity {
                                 Intent i = new Intent(getApplicationContext(),LihatVote.class);
                                 i.putExtra("idKtp", idKtp);
                                 i.putExtra("idUser", idUser);
-                                startActivity(i);
+                                if(!isFinish) {
+                                    isFinish = false;
+                                    startActivity(i);
+                                }
                                 finish();
                             }
                         })
