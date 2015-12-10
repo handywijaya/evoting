@@ -223,6 +223,7 @@ public class LoginActivity extends BaseActivity {
             boolean sentToken = sharedPreferences
                     .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
             if (sentToken) {
+                unregisterReceiver(this);
                 Intent i = new Intent(context,MainActivity.class);
                 i.putExtra("idKtp",idKtp);
                 i.putExtra("idUser",idUser);

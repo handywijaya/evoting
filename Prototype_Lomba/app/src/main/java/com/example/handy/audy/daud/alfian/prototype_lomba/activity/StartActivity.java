@@ -68,6 +68,10 @@ public class StartActivity extends BaseActivity {
             Intent i = new Intent(getApplicationContext(),MainActivity.class);
             i.putExtra("idKtp",idKtp);
             i.putExtra("idUser",idUser);
+            if(getIntent().getStringExtra("idSoal") != null) {
+                Log.e("idSoal","ada id soal nih");
+                i.putExtra("idSoal",getIntent().getStringExtra("idSoal"));
+            }
             startActivity(i);
             finish();
         }
