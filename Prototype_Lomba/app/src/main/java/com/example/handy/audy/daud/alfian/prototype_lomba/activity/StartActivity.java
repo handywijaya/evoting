@@ -100,19 +100,20 @@ public class StartActivity extends BaseActivity {
             return;
         }*/
 
-        pendingIntent = PendingIntent.getActivity(
-                this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        if(nfc!=null) {
+            pendingIntent = PendingIntent.getActivity(
+                    this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
-        IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        try {
-            ndef.addDataType("text/plain");
-        }
-        catch (IntentFilter.MalformedMimeTypeException e) {
-            throw new RuntimeException("fail", e);
-        }
-        intentFiltersArray = new IntentFilter[] {ndef };
+            IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+            try {
+                ndef.addDataType("text/plain");
+            } catch (IntentFilter.MalformedMimeTypeException e) {
+                throw new RuntimeException("fail", e);
+            }
+            intentFiltersArray = new IntentFilter[]{ndef};
 
-        techListsArray = new String[][] { new String[] { NfcF.class.getName() } };
+            techListsArray = new String[][]{new String[]{NfcF.class.getName()}};
+        }
 
     }
 
@@ -123,13 +124,17 @@ public class StartActivity extends BaseActivity {
 
     public void onPause() {
         super.onPause();
-        nfc.disableForegroundDispatch(this);
+        if(nfc != null) {
+            nfc.disableForegroundDispatch(this);
+        }
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
-        nfc.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
+            super.onResume();
+        if(nfc != null) {
+            nfc.enableForegroundDispatch(this, pendingIntent, intentFiltersArray, techListsArray);
+        }
     }
 
     public void onNewIntent(Intent intent) {
