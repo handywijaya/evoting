@@ -39,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HasilVotingActivity extends BaseActivity {
@@ -52,6 +53,7 @@ public class HasilVotingActivity extends BaseActivity {
     Soal soal;
     List<PilihanJawaban> listPilihanJawaban;
     List<HasilVoting> listHasilVoting;
+    HashMap<String, Integer> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,10 +115,15 @@ public class HasilVotingActivity extends BaseActivity {
 
         for(PilihanJawaban p : listPilihanJawaban) {
             xVals.add(p.getNamaPilihan());
+            map.put(p.getIdPilihan(), 0);
         }
 
         for (int i = 0; i < listHasilVoting.size(); i++) {
-            yVals.add(new Entry(Float.parseFloat(listHasilVoting.get(i).getTotal()), i));
+            map.put(listHasilVoting.get(i).getIdJawaban(), Integer.parseInt(listHasilVoting.get(i).getTotal()));
+        }
+
+        for(PilihanJawaban p : listPilihanJawaban) {
+            yVals.add(new Entry(Float.parseFloat(String.valueOf(map.get(p.getIdPilihan()))), map.size()));
         }
 
         PieDataSet dataSet = new PieDataSet(yVals, "");
