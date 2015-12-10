@@ -13,6 +13,12 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="com.example.handy.audy.daud.alfian.prototype_lomba.permission.C2D_MESSAGE" />
 
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
