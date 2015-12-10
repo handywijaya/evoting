@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_id": "default-demo-app-64f4f",
-    "project_number": "1055527216191",
-    "name": "Default Demo App"
+    "project_id": "prototype-lomba",
+    "project_number": "23171236683",
+    "name": "Prototype Lomba"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1055527216191:android:77a30121c1b928e9",
+        "mobilesdk_app_id": "1:23171236683:android:77a30121c1b928e9",
         "client_id": "android:com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service",
         "client_type": 1,
         "android_client_info": {
