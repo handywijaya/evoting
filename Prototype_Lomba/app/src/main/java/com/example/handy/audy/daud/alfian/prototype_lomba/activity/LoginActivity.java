@@ -180,12 +180,12 @@ public class LoginActivity extends BaseActivity {
                             //register.setTOPICS(topics);
                             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("idKtp",idKtp);
+                            editor.putString("idKtp", idKtp);
                             editor.putString("idUser", idUser);
                             editor.putBoolean("logged_in", true);
                             editor.putString("c1",topics[0]);
                             editor.putString("c2",topics[1]);
-                            editor.putString("c3",topics[2]);
+                            editor.putString("c3", topics[2]);
                             editor.putString("c4",topics[3]);
                             editor.commit();
 
@@ -196,8 +196,6 @@ public class LoginActivity extends BaseActivity {
                             intent.putExtra("topics", topics);
                             startService(intent);
 
-                            Toast.makeText(getApplicationContext(), "Login sukses!", Toast.LENGTH_SHORT).show();
-
                         } catch (JSONException e){
                             e.printStackTrace();
                         }
@@ -205,13 +203,15 @@ public class LoginActivity extends BaseActivity {
                 }
                 else{
                     Toast.makeText(LoginActivity.this, "Terdapat kesalahan dalam pengambilan data", Toast.LENGTH_SHORT).show();
+                    pDialog.dismiss();
                 }
             }
             else {
                 Toast.makeText(LoginActivity.this, "Password anda salah", Toast.LENGTH_SHORT).show();
+                pDialog.dismiss();
             }
 
-            pDialog.dismiss();
+
         }
     }
 
@@ -244,6 +244,8 @@ public class LoginActivity extends BaseActivity {
             boolean sentToken = sharedPreferences
                     .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
             if (sentToken) {
+                Toast.makeText(getApplicationContext(), "Login sukses!", Toast.LENGTH_SHORT).show();
+                pDialog.dismiss();
                 unregisterReceiver(this);
                 Intent i = new Intent(context,MainActivity.class);
                 i.putExtra("idKtp",idKtp);
@@ -252,6 +254,7 @@ public class LoginActivity extends BaseActivity {
                 finish();
             } else {
                 Toast.makeText(context, "Terdapat kesalahan dalam konfirmasi token", Toast.LENGTH_SHORT).show();
+                pDialog.dismiss();
             }
         }
     }
