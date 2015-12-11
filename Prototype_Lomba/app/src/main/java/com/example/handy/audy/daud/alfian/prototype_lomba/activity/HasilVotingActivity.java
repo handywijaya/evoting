@@ -54,6 +54,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class HasilVotingActivity extends BaseActivity {
 
@@ -97,15 +98,28 @@ public class HasilVotingActivity extends BaseActivity {
                 switch(selectedId) {
                     case R.id.rbBar :
                         pieChart.setVisibility(View.INVISIBLE);
+
                         barChart.setVisibility(View.VISIBLE);
                         barChart.invalidate();
                         barChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
                         break;
                     case R.id.rbPie :
                         barChart.setVisibility(View.INVISIBLE);
+
+                        Random randPie = new Random();
+                        int rPie = randPie.nextInt()%2;
+
                         pieChart.setVisibility(View.VISIBLE);
                         pieChart.invalidate();
-                        pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                        switch(rPie) {
+                            case 0:
+                                pieChart.animateX(1400, Easing.EasingOption.EaseInOutQuad);
+                                break;
+                            case 1:
+                                pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                                break;
+                        }
+                        break;
                 }
             }
         });
@@ -402,6 +416,7 @@ public class HasilVotingActivity extends BaseActivity {
                 barChart.setVisibility(View.VISIBLE);
                 barChart.invalidate();
                 barChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+
             }
         }
     }
