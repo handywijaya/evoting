@@ -3,6 +3,8 @@ package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,16 +12,38 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.example.handy.audy.daud.alfian.prototype_lomba.chart.BarChartFrag;
+import com.example.handy.audy.daud.alfian.prototype_lomba.chart.MyYAxisValueFormatter;
 import com.example.handy.audy.daud.alfian.prototype_lomba.chart.PieChartFrag;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.HasilVoting;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.PilihanJawaban;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.Soal;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -36,8 +60,13 @@ public class HasilVotingActivity extends BaseActivity {
     ProgressDialog pDialog;
     Button btnKembali;
     TextView tvSoal;
-    ViewPager pager;
-    PageAdapter a;
+    //ViewPager pager;
+    //PageAdapter a;
+    BarChart barChart;
+    PieChart pieChart;
+    Typeface mTf;
+    Typeface tf;
+    RadioGroup rg;
 
     String idPertanyaan;
     Soal soal;
@@ -52,10 +81,37 @@ public class HasilVotingActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setOffscreenPageLimit(3);
+//        pager = (ViewPager) findViewById(R.id.pager);
+//        pager.setOffscreenPageLimit(3);
+//
+//        a = new PageAdapter(getSupportFragmentManager());
 
-        a = new PageAdapter(getSupportFragmentManager());
+        rg = (RadioGroup) findViewById(R.id.rg);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selectedId = rg.getCheckedRadioButtonId();
+
+                RadioButton rb = (RadioButton) findViewById(selectedId);
+
+                switch(selectedId) {
+                    case R.id.rbBar :
+                        pieChart.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
+                        barChart.invalidate();
+                        barChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                        break;
+                    case R.id.rbPie :
+                        barChart.setVisibility(View.INVISIBLE);
+                        pieChart.setVisibility(View.VISIBLE);
+                        pieChart.invalidate();
+                        pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+                }
+            }
+        });
+
+        barChart = (BarChart) findViewById(R.id.barChart);
+        pieChart = (PieChart) findViewById(R.id.pieChart);
 
         idPertanyaan = getIntent().getStringExtra("idPertanyaan");
         soal = new Soal();
@@ -75,32 +131,172 @@ public class HasilVotingActivity extends BaseActivity {
         new LoadHasilVoting().execute();
     }
 
-    private class PageAdapter extends FragmentPagerAdapter {
+    private void initiateBarChart() {
 
-        public PageAdapter(FragmentManager fm) {
-            super(fm);
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+
+        barChart.setDescription("");
+
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        barChart.setMaxVisibleValueCount(60);
+
+        // scaling can now only be done on x- and y-axis separately
+        barChart.setPinchZoom(false);
+
+        barChart.setDrawGridBackground(false);
+        // mChart.setDrawYLabels(false);
+
+        mTf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTypeface(mTf);
+        xAxis.setDrawGridLines(false);
+        xAxis.setSpaceBetweenLabels(2);
+
+        YAxisValueFormatter custom = new MyYAxisValueFormatter();
+
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setTypeface(mTf);
+        leftAxis.setLabelCount(8, false);
+        leftAxis.setValueFormatter(custom);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setSpaceTop(15f);
+
+        YAxis rightAxis = barChart.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setTypeface(mTf);
+        rightAxis.setLabelCount(8, false);
+        rightAxis.setValueFormatter(custom);
+        rightAxis.setSpaceTop(15f);
+
+        Legend l = barChart.getLegend();
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        l.setForm(Legend.LegendForm.SQUARE);
+        l.setFormSize(9f);
+        l.setTextSize(11f);
+        l.setXEntrySpace(4f);
+    }
+
+    private void initiatePieChart() {
+        pieChart.setUsePercentValues(true);
+        pieChart.setDescription("");
+        pieChart.setExtraOffsets(5, 10, 5, 5);
+        pieChart.setDragDecelerationFrictionCoef(0.95f);
+        pieChart.setCenterTextTypeface(Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf"));
+        pieChart.setCenterText(generateCenterSpannableText());
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColorTransparent(true);
+        pieChart.setTransparentCircleColor(Color.WHITE);
+        pieChart.setTransparentCircleAlpha(110);
+        pieChart.setHoleRadius(58f);
+        pieChart.setTransparentCircleRadius(61f);
+        pieChart.setDrawCenterText(true);
+        pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(true);
+        pieChart.setHighlightPerTapEnabled(true);
+
+        tf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
+
+        Legend l = pieChart.getLegend();
+        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+    }
+
+    private void setBarChartData() {
+        ArrayList<String> xVals = new ArrayList<>();
+        ArrayList<BarEntry> yVals = new ArrayList<>();
+
+        for(PilihanJawaban p : listPilihanJawaban) {
+            xVals.add(p.getNamaPilihan());
+            map.put(p.getIdPilihan(), 0);
         }
 
-        @Override
-        public Fragment getItem(int pos) {
-            Fragment f = null;
-
-            switch(pos) {
-                case 0:
-                    f = BarChartFrag.newInstance(listPilihanJawaban, listHasilVoting);
-                    break;
-                case 1:
-                    f = PieChartFrag.newInstance(listPilihanJawaban, listHasilVoting);
-                    break;
-            }
-
-            return f;
+        for (int i = 0; i < listHasilVoting.size(); i++) {
+            map.put(listHasilVoting.get(i).getIdJawaban(), Integer.parseInt(listHasilVoting.get(i).getTotal()));
         }
 
-        @Override
-        public int getCount() {
-            return 2;
+        int i = 0;
+        for(PilihanJawaban p : listPilihanJawaban) {
+            yVals.add(new BarEntry(Float.parseFloat(String.valueOf(map.get(p.getIdPilihan()))), i));
+            i++;
         }
+
+        BarDataSet set1 = new BarDataSet(yVals, "Total Pemilih");
+        set1.setBarSpacePercent(35f);
+
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        dataSets.add(set1);
+
+        BarData data = new BarData(xVals, dataSets);
+        data.setValueTextSize(10f);
+        data.setValueTypeface(mTf);
+
+        barChart.setData(data);
+    }
+
+    private void setPieChartData() {
+        ArrayList<String> xVals = new ArrayList<>();
+        ArrayList<Entry> yVals = new ArrayList<>();
+
+        for(PilihanJawaban p : listPilihanJawaban) {
+            xVals.add(p.getNamaPilihan());
+            map.put(p.getIdPilihan(), 0);
+        }
+
+        for (int i = 0; i < listHasilVoting.size(); i++) {
+            map.put(listHasilVoting.get(i).getIdJawaban(), Integer.parseInt(listHasilVoting.get(i).getTotal()));
+        }
+
+        for(PilihanJawaban p : listPilihanJawaban) {
+            yVals.add(new Entry(Float.parseFloat(String.valueOf(map.get(p.getIdPilihan()))), map.size()));
+        }
+
+        PieDataSet dataSet = new PieDataSet(yVals, "");
+        dataSet.setSliceSpace(2f);
+        dataSet.setSelectionShift(5f);
+
+        //inisialisasi warna
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(12f);
+        data.setValueTextColor(Color.BLACK);
+        data.setValueTypeface(tf);
+
+        pieChart.setData(data);
+    }
+
+    private SpannableString generateCenterSpannableText() {
+
+        SpannableString s = new SpannableString("Hasil Pemilihan");
+        s.setSpan(new StyleSpan(Typeface.BOLD), 0, s.length(), 0);
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, s.length(), 0);
+        return s;
     }
 
     class LoadHasilVoting extends AsyncTask<String, String, String> {
@@ -191,17 +387,21 @@ public class HasilVotingActivity extends BaseActivity {
             if(success == 1 && success1 == 1 && success2 == 1) {
                 pDialog.dismiss();
                 tvSoal.setText(soal.getJudul());
-                new AlertDialog.Builder(HasilVotingActivity.this)
-                        .setTitle("Informasi")
-                        .setMessage("Geser layar ke kanan untuk melihat grafik dalam bentuk yang berbeda")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                pager.setAdapter(a);
-                            }
-                        })
-                        .show();
 
+                RadioButton rbBar = (RadioButton) findViewById(R.id.rbBar);
+                RadioButton rbPie = (RadioButton) findViewById(R.id.rbPie);
+
+                rbBar.setVisibility(View.VISIBLE);
+                rbPie.setVisibility(View.VISIBLE);
+
+                initiateBarChart();
+                initiatePieChart();
+                setBarChartData();
+                setPieChartData();
+
+                barChart.setVisibility(View.VISIBLE);
+                barChart.invalidate();
+                barChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
             }
         }
     }

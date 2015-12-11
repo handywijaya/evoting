@@ -20,12 +20,55 @@
         style="@style/Judul4"
         android:id="@+id/tvSoal"/>
 
-    <android.support.v4.view.ViewPager
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rg"
+        android:layout_below="@+id/tvSoal"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rbBar"
+            android:layout_marginEnd="20dp"
+            android:checked="true"
+            android:visibility="invisible"
+            android:text="Grafik Batang"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rbPie"
+            android:layout_marginStart="20dp"
+            android:visibility="invisible"
+            android:text="Grafik Donat"/>
+
+    </RadioGroup>
+
+    <!-- <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pager"
         android:layout_above="@+id/btnKembali"
-        android:layout_below="@+id/tvSoal"/>
+        android:layout_below="@+id/tvSoal"/> -->
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:id="@+id/barChart"
+        android:layout_below="@+id/rg"
+        android:layout_above="@+id/btnKembali"/>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="match_parent"
+        android:visibility="invisible"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rg"
+        android:layout_above="@+id/btnKembali"/>
 
     <Button
         android:layout_width="match_parent"
