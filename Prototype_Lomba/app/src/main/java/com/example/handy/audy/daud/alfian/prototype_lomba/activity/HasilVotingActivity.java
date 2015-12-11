@@ -115,7 +115,7 @@ public class HasilVotingActivity extends BaseActivity {
                             case 0:
                                 pieChart.animateX(1400, Easing.EasingOption.EaseInOutQuad);
                                 break;
-                            case 1:
+                            default:
                                 pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
                                 break;
                         }
