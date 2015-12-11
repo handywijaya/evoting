@@ -105,14 +105,13 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("logged_in",false);
+                editor.putBoolean("logged_in", false);
                 editor.commit();
 
-                stopService(new Intent(getApplicationContext(), RegistrationIntentService.class));
-                stopService(new Intent(getApplicationContext(), MyGcmListenerService.class));
-                stopService(new Intent(getApplicationContext(), MyInstanceIDListenerService.class));
 
-                Intent i = new Intent(getApplicationContext(),StartActivity.class);
+
+                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                i.putExtra("stopService",true);
                 startActivity(i);
                 finish();
             }

@@ -48,6 +48,7 @@ public class GcmSender {
             //jData.put("idSoal", idSoal);
             jData.put("message", message.trim());
             jData.put("idSoal", idSoal.trim());
+            jData.put("channel",channel.trim());
             // Where to send GCM message.
             if (channel.length() > 1 && channel != null) {
                 jGcmData.put("to", "/topics/" + channel.trim());

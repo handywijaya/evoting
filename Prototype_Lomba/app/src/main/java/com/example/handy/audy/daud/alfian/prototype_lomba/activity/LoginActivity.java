@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
+import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.MyGcmListenerService;
+import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.MyInstanceIDListenerService;
 import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.QuickstartPreferences;
 import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.RegistrationIntentService;
 import com.google.android.gms.common.ConnectionResult;
@@ -61,6 +63,20 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(getIntent().getBooleanExtra("stopService",false)) {
+            stopService(new Intent(getApplicationContext(), RegistrationIntentService.class));
+            stopService(new Intent(getApplicationContext(), MyGcmListenerService.class));
+            stopService(new Intent(getApplicationContext(), MyInstanceIDListenerService.class));
+
+            Log.e("StopService", "Jalan");
+
+            Intent i = new Intent(getApplicationContext(),StartActivity.class);
+            i.putExtra("stopService", true);
+            startActivity(i);
+            finish();
+
+        }
 
         idKtp = getIntent().getStringExtra("idKtp");
 
@@ -147,12 +163,7 @@ public class LoginActivity extends BaseActivity {
         protected void onPostExecute(String s) {
             //super.onPostExecute(s);
             if(success2 >= 1) {
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("idKtp",idKtp);
-                editor.putString("idUser", idUser);
-                editor.putBoolean("logged_in", true);
-                editor.commit();
+
 
                 if(success3 >= 1){
                     if (servicesExist) {
@@ -167,6 +178,16 @@ public class LoginActivity extends BaseActivity {
                             topics[2] = kampung.getString("KECAMATAN") + "_" + kampung.getString("KELURAHAN");
                             topics[3] = kampung.getString("KECAMATAN");
                             //register.setTOPICS(topics);
+                            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("idKtp",idKtp);
+                            editor.putString("idUser", idUser);
+                            editor.putBoolean("logged_in", true);
+                            editor.putString("c1",topics[0]);
+                            editor.putString("c2",topics[1]);
+                            editor.putString("c3",topics[2]);
+                            editor.putString("c4",topics[3]);
+                            editor.commit();
 
                             mRegistrationBroadcastReceiver = new ListenerBroadcastReceiver();
                             registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
