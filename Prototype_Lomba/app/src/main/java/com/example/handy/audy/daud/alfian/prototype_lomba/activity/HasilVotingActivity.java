@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.example.handy.audy.daud.alfian.prototype_lomba.chart.BarChartFrag;
+import com.example.handy.audy.daud.alfian.prototype_lomba.chart.MyValueFormatter;
 import com.example.handy.audy.daud.alfian.prototype_lomba.chart.MyYAxisValueFormatter;
 import com.example.handy.audy.daud.alfian.prototype_lomba.chart.PieChartFrag;
 import com.example.handy.audy.daud.alfian.prototype_lomba.model.HasilVoting;
@@ -249,6 +250,7 @@ public class HasilVotingActivity extends BaseActivity {
         BarData data = new BarData(xVals, dataSets);
         data.setValueTextSize(10f);
         data.setValueTypeface(mTf);
+        data.setValueFormatter(new MyValueFormatter());
 
         barChart.setData(data);
     }
