@@ -137,6 +137,17 @@
             </TableRow>
 
             <TableRow>
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hapus Pilihan"
+                    android:id="@+id/btnHapusPilihan"
+                    android:visibility="gone"/>
+            </TableRow>
+
+            <TableRow>
                 <Button
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"

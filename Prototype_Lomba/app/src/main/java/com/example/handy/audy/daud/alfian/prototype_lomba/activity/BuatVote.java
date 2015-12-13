@@ -62,7 +62,7 @@ public class BuatVote extends BaseActivity {
     private int flag = 0;
 
     EditText txtPertanyaan, txtTanggalMulai, txtTanggalSelesai;
-    Button btnTambahPilihan, btnKembali, btnKirim;
+    Button btnTambahPilihan, btnKembali, btnKirim, btnHapusPilihan;
     int flagKeyboard = 0;
     Calendar calendar = Calendar.getInstance();
     List<String> namaPilihan;
@@ -160,7 +160,7 @@ public class BuatVote extends BaseActivity {
         btnTambahPilihan = (Button) findViewById(R.id.btnTambahPilihan);
         btnKembali = (Button) findViewById(R.id.btnKembali);
         btnKirim = (Button) findViewById(R.id.btnKirim);
-
+        btnHapusPilihan = (Button)findViewById(R.id.btnHapusPilihan);
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -242,11 +242,27 @@ public class BuatVote extends BaseActivity {
                     txtPilihan.setSingleLine(true);
                     txtPilihan.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     layoutPilihan.addView(txtPilihan);
+
+                    if(layoutPilihan.getChildCount() < 1)btnHapusPilihan.setVisibility(View.GONE);
+                    else btnHapusPilihan.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+
+
+        btnHapusPilihan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText txt = (EditText) layoutPilihan.getChildAt(layoutPilihan.getChildCount()-1);
+                layoutPilihan.removeView(txt);
+
+                if(layoutPilihan.getChildCount() < 1)btnHapusPilihan.setVisibility(View.GONE);
+                else btnHapusPilihan.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     private boolean validate(String isiSoal, String tanggalMulaiString, String tanggalSelesaiString)
