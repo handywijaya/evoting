@@ -62,7 +62,7 @@ public class BuatVote extends BaseActivity {
     private int flag = 0;
 
     EditText txtPertanyaan, txtTanggalMulai, txtTanggalSelesai;
-    Button btnTambahPilihan, btnKembali, btnKirim;
+    Button btnTambahPilihan, btnKembali, btnKirim, btnHapusPilihan;
     int flagKeyboard = 0;
     Calendar calendar = Calendar.getInstance();
     List<String> namaPilihan;
@@ -160,7 +160,7 @@ public class BuatVote extends BaseActivity {
         btnTambahPilihan = (Button) findViewById(R.id.btnTambahPilihan);
         btnKembali = (Button) findViewById(R.id.btnKembali);
         btnKirim = (Button) findViewById(R.id.btnKirim);
-
+        btnHapusPilihan = (Button)findViewById(R.id.btnHapusPilihan);
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +187,11 @@ public class BuatVote extends BaseActivity {
                 for (int i = 0; i < layoutPilihan.getChildCount(); i++) {
                     View child = layoutPilihan.getChildAt(i);
                     if (child instanceof EditText) {
-                        namaPilihan.add(((EditText) child).getText().toString());
+                        if(((EditText) child).getText().toString().equals(""))
+                        {
+                            ((EditText) child).setError("Pilihan harus diisi");
+                        }
+                        else namaPilihan.add(((EditText) child).getText().toString());
                     }
                 }
                 if(namaPilihan.size() < 2){
@@ -200,8 +204,30 @@ public class BuatVote extends BaseActivity {
                     Toast.makeText(BuatVote.this, "Jumlah pilihan minimum adalah 2(dua). Tolong tambah jumlah pilihan.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    if(!isiSoal.trim().equals("") && !tanggalMulaiString.trim().equals("") && !tanggalSelesaiString.trim().equals("")) {
-                        new InsertPertanyaan().execute();
+
+                    if(validate(isiSoal, tanggalMulaiString, tanggalSelesaiString)) {
+                        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+
+                        try
+                        {
+                            if((sdfDate.parse(tanggalSelesaiString.toString()).after(sdfDate.parse(tanggalMulaiString.toString()))) ||
+                                    sdfDate.parse(tanggalSelesaiString.toString()).equals(sdfDate.parse(tanggalMulaiString.toString())))
+                            {
+                                new InsertPertanyaan().execute();
+
+                            }
+                            else
+                            {
+                                txtTanggalMulai.setError(null);
+                                txtTanggalSelesai.setError("Tanggal selesai pemilu harus sama atau minimal terdapat rentang 1 hari dari tanggal mulai pemilu");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ex.printStackTrace();
+                        }
+
+
                     }
                 }
             }
@@ -216,11 +242,51 @@ public class BuatVote extends BaseActivity {
                     txtPilihan.setSingleLine(true);
                     txtPilihan.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     layoutPilihan.addView(txtPilihan);
+
+                    if(layoutPilihan.getChildCount() < 1)btnHapusPilihan.setVisibility(View.GONE);
+                    else btnHapusPilihan.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+
+
+        btnHapusPilihan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText txt = (EditText) layoutPilihan.getChildAt(layoutPilihan.getChildCount()-1);
+                layoutPilihan.removeView(txt);
+
+                if(layoutPilihan.getChildCount() < 1)btnHapusPilihan.setVisibility(View.GONE);
+                else btnHapusPilihan.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
+    private boolean validate(String isiSoal, String tanggalMulaiString, String tanggalSelesaiString)
+    {
+        boolean valid = true;
+        if(isiSoal.trim().equals(""))
+        {
+            valid = false;
+            txtPertanyaan.setError("Pertanyaan harus diisi");
+        }
+
+        if(tanggalMulaiString.trim().equals(""))
+        {
+            valid = false;
+            txtTanggalMulai.setError("Tanggal mulai pemilu harus diisi");
+        }
+
+        if(tanggalSelesaiString.trim().equals(""))
+        {
+            valid = false;
+            txtTanggalSelesai.setError("Tanggal selesai pemilu harus diisi");
+        }
+        return valid;
+
     }
 
     class InsertPertanyaan extends AsyncTask<String,String,String> {

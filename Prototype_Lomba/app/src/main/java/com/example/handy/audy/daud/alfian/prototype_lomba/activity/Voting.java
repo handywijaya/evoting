@@ -18,6 +18,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -139,6 +140,7 @@ public class Voting extends BaseActivity {
         tvTitle.setText("Tempel kembali e-ktp anda");
         lay.addView(tvTitle);
         txtIdKtp = new EditText(Voting.this);
+        txtIdKtp.setInputType(InputType.TYPE_CLASS_NUMBER);
         txtIdKtp.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         //txtIdKtp.setEnabled(false);
         txtIdKtp.setSingleLine(true);
