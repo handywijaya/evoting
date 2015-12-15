@@ -237,7 +237,7 @@ public class HasilVotingActivity extends BaseActivity {
 
         int i = 0;
         for(PilihanJawaban p : listPilihanJawaban) {
-            yVals.add(new BarEntry(Float.parseFloat(String.valueOf(map.get(p.getIdPilihan()))), i));
+            yVals.add(new BarEntry (Float.parseFloat(String.valueOf(map.get(p.getIdPilihan()))), i));
             i++;
         }
 

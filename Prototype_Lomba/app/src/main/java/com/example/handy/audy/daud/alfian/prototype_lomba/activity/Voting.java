@@ -162,7 +162,7 @@ public class Voting extends BaseActivity {
                     new SubmitJawaban().execute();
                 }
                 else {
-                    Toast.makeText(Voting.this, "Data E-KTP tidak valid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Voting.this, "Data E-KTP tidak valid atau tidak sesuai dengan data KTP yang sedang digunakan untuk mengisi pemilu.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -184,7 +184,7 @@ public class Voting extends BaseActivity {
                 dialogp.dismiss();
                 new SubmitJawaban().execute();
             } else {
-                Toast.makeText(Voting.this, "Data E-KTP tidak valid", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Voting.this, "Data E-KTP tidak valid atau tidak sesuai dengan data KTP yang sedang digunakan untuk mengisi pemilu.", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -285,25 +285,36 @@ public class Voting extends BaseActivity {
             //super.onPostExecute(s);
 
             progressDialog.dismiss();
+            initialization();
 
-            tvPertanyaan.setText(soal);
-            for(HashMap<String, String> pilihan : pilihanVoting)
-            {
-                RadioButton radioButtons = new RadioButton(Voting.this);
-                String id = pilihan.get(TAG_IDPILIHAN);
+            if(flag == 1) {
 
-                radioButtons.setId(Integer.valueOf(id));
-                radioButtons.setText(pilihan.get(TAG_NAMAPILIHAN));
-                rg.addView(radioButtons);
+                tvPertanyaan.setText(soal);
+                for (HashMap<String, String> pilihan : pilihanVoting) {
+                    RadioButton radioButtons = new RadioButton(Voting.this);
+                    String id = pilihan.get(TAG_IDPILIHAN);
+
+                    radioButtons.setId(Integer.valueOf(id));
+                    radioButtons.setText(pilihan.get(TAG_NAMAPILIHAN));
+                    rg.addView(radioButtons);
+                }
+            }
+            else if(flag == 0) {
+                Toast.makeText(Voting.this, "Maaf, anda sudah memberikan suara anda pada pemilu ini.", Toast.LENGTH_SHORT).show();
+                btnKembali.callOnClick();
+            }
+            else {
+                Toast.makeText(Voting.this, "Maaf, terjadi kesalahan saat pengambilan jawaban.", Toast.LENGTH_SHORT).show();
+                btnKembali.callOnClick();
             }
 
-            initialization();
         }
 
         @Override
         protected String doInBackground(String... params) {
             List<NameValuePair> args = new ArrayList<>();
             args.add(new BasicNameValuePair("idPertanyaan", idPertanyaan));
+            //args.add(new BasicNameValuePair("idUser", idUser));
             args.add(new BasicNameValuePair("tag", "get_pertanyaan"));
 
             JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
@@ -331,11 +342,10 @@ public class Voting extends BaseActivity {
 
                     try
                     {
-                        pilihanJawaban = jsonObjectPilihan.getJSONArray("items");
-
                         int success2 = jsonObjectPilihan.getInt(TAG_SUCCESS);
                         if(success2 == 1)
                         {
+                            pilihanJawaban = jsonObjectPilihan.getJSONArray("items");
                             for(int i = 0;i < pilihanJawaban.length(); i++)
                             {
                                 JSONObject c = pilihanJawaban.getJSONObject(i);
@@ -347,12 +357,16 @@ public class Voting extends BaseActivity {
                                 pilihanVoting.add(map);
                             }
                         }
+                        else {
+                            flag = 2;
+                        }
 
 
                     }
                     catch (Exception ex)
                     {
                         ex.printStackTrace();
+                        flag = 3;
                     }
 
 
@@ -489,6 +503,12 @@ public class Voting extends BaseActivity {
                         .setTitle("Konfirmasi Pemilihan")
                         .setMessage("Gagal menyimpan hasil pemilihan. Silahkan coba lagi")
                         .setPositiveButton("Ok", null)
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                btnKembali.callOnClick();
+                            }
+                        })
                         .show();
             }
 
