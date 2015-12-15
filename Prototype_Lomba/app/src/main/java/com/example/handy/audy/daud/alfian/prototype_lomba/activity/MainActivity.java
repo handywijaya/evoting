@@ -1,5 +1,7 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -104,16 +106,24 @@ public class MainActivity extends BaseActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("logged_in", false);
-                editor.commit();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Konfirmasi Keluar")
+                        .setMessage("Apakah anda yakin ingin keluar?")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean("logged_in", false);
+                                editor.commit();
 
-
-
-                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
-                i.putExtra("stopService",true);
-                startActivity(i);
-                finish();
+                                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                                i.putExtra("stopService",true);
+                                startActivity(i);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Tidak", null)
+                        .show();
             }
         });
 
@@ -139,5 +149,20 @@ public class MainActivity extends BaseActivity {
         }*/
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Keluar Aplikasi")
+                .setMessage("Apakah anda yakin ingin keluar dari aplikasi ini?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
     }
 }
