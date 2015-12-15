@@ -13,7 +13,9 @@ import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +25,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,8 +65,10 @@ public class BuatVote extends BaseActivity {
     private static final String TAG_CHANNEL = "channel";
     private int flag = 0;
 
+    protected DisplayMetrics m;
+
     EditText txtPertanyaan, txtTanggalMulai, txtTanggalSelesai;
-    Button btnTambahPilihan, btnKembali, btnKirim, btnHapusPilihan;
+    Button btnTambahPilihan, btnKembali, btnKirim;
     int flagKeyboard = 0;
     Calendar calendar = Calendar.getInstance();
     List<String> namaPilihan;
@@ -91,8 +97,8 @@ public class BuatVote extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buat_vote);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        m = getApplicationContext().getResources().getDisplayMetrics();
 
         layoutPilihan = (LinearLayout)findViewById(R.id.layoutPilihan);
         namaPilihan = new ArrayList<>();
@@ -160,7 +166,6 @@ public class BuatVote extends BaseActivity {
         btnTambahPilihan = (Button) findViewById(R.id.btnTambahPilihan);
         btnKembali = (Button) findViewById(R.id.btnKembali);
         btnKirim = (Button) findViewById(R.id.btnKirim);
-        btnHapusPilihan = (Button)findViewById(R.id.btnHapusPilihan);
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,16 +189,7 @@ public class BuatVote extends BaseActivity {
 
                 // Ambil semua pilihan di sini
                 namaPilihan.clear();
-                for (int i = 0; i < layoutPilihan.getChildCount(); i++) {
-                    View child = layoutPilihan.getChildAt(i);
-                    if (child instanceof EditText) {
-                        if(((EditText) child).getText().toString().equals(""))
-                        {
-                            ((EditText) child).setError("Pilihan harus diisi");
-                        }
-                        else namaPilihan.add(((EditText) child).getText().toString());
-                    }
-                }
+                getNamaPilihan(layoutPilihan);
                 if(namaPilihan.size() < 2){
                     flag = 2;
                 }
@@ -237,32 +233,71 @@ public class BuatVote extends BaseActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    RelativeLayout lay = new RelativeLayout(BuatVote.this);
+                    lay.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    //lay.setOrientation(LinearLayout.HORIZONTAL);
+
+                    ImageButton btnDelete = new ImageButton(BuatVote.this);
+                    //btnDelete.setBackgroundResource(R.drawable.ic_delete_black_24dp);
+                    btnDelete.setBackgroundResource(R.drawable.ic_delete_pilihan);
+                    RelativeLayout.LayoutParams l_btn = new RelativeLayout.LayoutParams(getdp(30), getdp(30));
+                    l_btn.addRule(RelativeLayout.ALIGN_PARENT_END);
+                    btnDelete.setId(View.generateViewId());
+                    int id_btn = btnDelete.getId();
+                    btnDelete.setLayoutParams(l_btn);
+
                     EditText txtPilihan = new EditText(BuatVote.this);
                     txtPilihan.setHint("Pilihan");
                     txtPilihan.setSingleLine(true);
-                    txtPilihan.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    layoutPilihan.addView(txtPilihan);
+                    RelativeLayout.LayoutParams l_pilih = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    l_pilih.addRule(RelativeLayout.START_OF, id_btn);
+                    txtPilihan.setLayoutParams(l_pilih);
+                    lay.addView(txtPilihan);
+                    lay.addView(btnDelete);
 
-                    if(layoutPilihan.getChildCount() < 1)btnHapusPilihan.setVisibility(View.GONE);
-                    else btnHapusPilihan.setVisibility(View.VISIBLE);
+                    layoutPilihan.addView(lay);
+
+
+                    final RelativeLayout l_delete = lay;
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            layoutPilihan.removeView(l_delete);
+                        }
+                    });
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
+    }
 
-        btnHapusPilihan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText txt = (EditText) layoutPilihan.getChildAt(layoutPilihan.getChildCount()-1);
-                layoutPilihan.removeView(txt);
+    private int getdp(int val) {
+        int px = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                val,
+                m
+        );
+        return px;
+    }
 
-                if(layoutPilihan.getChildCount() < 1)btnHapusPilihan.setVisibility(View.GONE);
-                else btnHapusPilihan.setVisibility(View.VISIBLE);
+    private void getNamaPilihan(ViewGroup v) {
+        ViewGroup layoutPilihan = v;
+        for (int i = 0; i < layoutPilihan.getChildCount(); i++) {
+            View child = layoutPilihan.getChildAt(i);
+            if (child instanceof ViewGroup) {
+                getNamaPilihan((ViewGroup)child);
             }
-        });
-
+            else if (child instanceof EditText) {
+                if(((EditText) child).getText().toString().equals(""))
+                {
+                    ((EditText) child).setError("Pilihan harus diisi");
+                }
+                else namaPilihan.add(((EditText) child).getText().toString());
+            }
+        }
     }
 
     private boolean validate(String isiSoal, String tanggalMulaiString, String tanggalSelesaiString)

@@ -80,8 +80,6 @@ public class HasilVotingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasil_voting);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 //        pager = (ViewPager) findViewById(R.id.pager);
 //        pager.setOffscreenPageLimit(3);

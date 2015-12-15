@@ -61,8 +61,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         if(getIntent().getBooleanExtra("stopService",false)) {
             stopService(new Intent(getApplicationContext(), RegistrationIntentService.class));
