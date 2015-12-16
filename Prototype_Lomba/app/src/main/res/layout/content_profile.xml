@@ -49,306 +49,345 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ektp"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="No. E-KTP"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtNoKTP"
                     android:text=""
                     />
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/nama"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Nama"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtNama"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ttl"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Tempat, Tanggal Lahir"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtTempatTanggalLahir"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/jeniskelamin"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Jenis Kelamin"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtJenisKelamin"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/alamat"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Alamat"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtAlamat"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rtrw"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="RT/RW"
-
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtRTRW"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/desakelurahan"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Desa/Kelurahan"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtKelurahan"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/kecamatan"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Kecamatan"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtKecamatan"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/agama"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Agama"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtAgama"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/statusperkawinan"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Status Perkawinan"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtStatusPerkawinan"
                     android:text=""
                     />
 
             </TableRow>
 
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/pekerjaan"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Pekerjaan"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtPekerjaan"
                     android:text=""
                     />
 
             </TableRow>
 
-
-            <View
-                android:layout_height="2dip"
-                android:background="#000000" />
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:padding="6dp"
+                android:paddingBottom="10dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="0dip"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/kewarganegaraan"/>
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:text="Kewarganegaraan"
                     />
 
                 <TextView
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:id="@+id/txtKewarganegaraan"
                     android:text=""
                     />

@@ -177,8 +177,6 @@ public class Profile extends BaseActivity {
                 txtStatusPerkawinan.setText(statusPerkawinan);
                 txtPekerjaan.setText(pekerjaan);
                 txtKewarganegaraan.setText(kewarganegaraan);
-
-
             }
         }
 
