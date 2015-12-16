@@ -59,7 +59,12 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
         setContentView(R.layout.activity_lihat_vote);
 
         View icon = findViewById(R.id.ivLogo);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+        if(getIntent().getBooleanExtra("fromVoting",false)) {
+            initialization();
+            flagLoad = false;
+        }
+        else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             icon.setTransitionName("icon");
             getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
                 @Override
@@ -101,10 +106,6 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
                     return true;
                 }
             });
-        }
-        else if(getIntent().getBooleanExtra("fromVoting",false)) {
-            initialization();
-            flagLoad = false;
         }
         else {
             initialization();
