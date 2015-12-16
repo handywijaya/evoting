@@ -11,6 +11,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".activity.MainActivity"
         tools:showIn="@layout/activity_main"
+        android:id="@+id/topLayout"
         android:gravity="center">
 
         <LinearLayout
@@ -66,6 +67,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp" android:src="@drawable/icon_buatvote"
+                            android:id="@+id/ivBuatVote"
                             android:elevation="4dp"
                             android:background="@drawable/ripple_buatvote" />
                         <TextView
@@ -88,6 +90,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp" android:src="@drawable/lihatvote"
+                            android:id="@+id/ivDaftarVote"
                             android:elevation="4dp"
                             android:background="@drawable/ripple_lihatpilihan" />
                         <TextView
@@ -116,6 +119,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp" android:src="@drawable/icon_riwayatvote"
+                            android:id="@+id/ivRiwayat"
                             android:elevation="4dp"
                             android:background="@drawable/ripple_riwayat" />
                         <TextView
@@ -139,6 +143,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp" android:src="@drawable/icon_profile"
+                            android:id="@+id/ivProfil"
                             android:elevation="4dp"
                             android:background="@drawable/ripple_profile" />
                         <TextView
@@ -179,6 +184,13 @@
             </TableRow>
 
         </TableLayout>
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/ivAnim"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 </ScrollView>

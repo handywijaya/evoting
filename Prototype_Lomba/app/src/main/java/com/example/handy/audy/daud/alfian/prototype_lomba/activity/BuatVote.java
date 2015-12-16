@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.transition.Transition;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -81,6 +83,8 @@ public class BuatVote extends BaseActivity {
     DatePickerDialog dMulai, dSelesai;
     JSONObject jsonObject;
 
+    boolean flagLoad = true;
+
     private void updateLabelMulai() {
         String myFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
@@ -98,6 +102,56 @@ public class BuatVote extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buat_vote);
 
+        View icon = findViewById(R.id.ivLogo);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            icon.setTransitionName("icon");
+            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    if(flagLoad) {
+                        initialization();
+                        flagLoad = false;
+                    }
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
+            postponeEnterTransition();
+
+            final View decor = getWindow().getDecorView();
+            decor.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    decor.getViewTreeObserver().removeOnPreDrawListener(this);
+                    startPostponedEnterTransition();
+                    return true;
+                }
+            });
+        }
+        else {
+            initialization();
+        }
+    }
+
+    private void initialization() {
         m = getApplicationContext().getResources().getDisplayMetrics();
 
         layoutPilihan = (LinearLayout)findViewById(R.id.layoutPilihan);
@@ -169,7 +223,7 @@ public class BuatVote extends BaseActivity {
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -271,7 +325,6 @@ public class BuatVote extends BaseActivity {
                 }
             }
         });
-
     }
 
     private int getdp(int val) {

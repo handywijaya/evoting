@@ -1,22 +1,29 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
 import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.MyGcmListenerService;
@@ -26,6 +33,7 @@ import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.Registrati
 public class MainActivity extends BaseActivity {
     ViewGroup btnBuatVote,btnLihatVote, btnRiwayatVote, btnProfile, btnLogout;
     String idUser,idKtp;
+    ImageView ivBuatVote,ivDaftarVote,ivRiwayat,ivProfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +66,16 @@ public class MainActivity extends BaseActivity {
             }
         }
 
+        ivBuatVote = (ImageView)findViewById(R.id.ivBuatVote);
+        ivDaftarVote = (ImageView)findViewById(R.id.ivDaftarVote);
+        ivRiwayat = (ImageView)findViewById(R.id.ivRiwayat);
+        ivProfil = (ImageView)findViewById(R.id.ivProfil);
+
         btnBuatVote = (ViewGroup) findViewById(R.id.btnVotingBaru);
         btnBuatVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), BuatVote.class);
-                i.putExtra("idKtp",idKtp);
-                i.putExtra("idUser",idUser);
-                startActivity(i);
+                exitTransition(BuatVote.class,ivBuatVote);
             }
         });
 
@@ -73,10 +83,7 @@ public class MainActivity extends BaseActivity {
         btnLihatVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LihatVote.class);
-                i.putExtra("idKtp",idKtp);
-                i.putExtra("idUser",idUser);
-                startActivity(i);
+                exitTransition(LihatVote.class,ivDaftarVote);
             }
         });
 
@@ -84,10 +91,7 @@ public class MainActivity extends BaseActivity {
         btnRiwayatVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), RiwayatVote.class);
-                i.putExtra("idKtp",idKtp);
-                i.putExtra("idUser",idUser);
-                startActivity(i);
+                exitTransition(RiwayatVote.class,ivRiwayat);
             }
         });
 
@@ -95,10 +99,7 @@ public class MainActivity extends BaseActivity {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Profile.class);
-                i.putExtra("idKtp",idKtp);
-                i.putExtra("idUser",idUser);
-                startActivity(i);
+                exitTransition(Profile.class,ivProfil);
             }
         });
 
@@ -126,6 +127,20 @@ public class MainActivity extends BaseActivity {
                         .show();
             }
         });
+
+    }
+
+    private void exitTransition(final Class cls, final ImageView iv) {
+        Intent i = new Intent(getApplicationContext(), cls);
+        i.putExtra("idKtp", idKtp);
+        i.putExtra("idUser", idUser);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(MainActivity.this, iv, "icon");
+            startActivity(i, options.toBundle());
+        } else {
+            startActivity(i);
+        }
 
     }
 

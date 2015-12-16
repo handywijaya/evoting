@@ -3,13 +3,17 @@ package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,6 +38,8 @@ public class Profile extends BaseActivity {
 
 
     Button btnKembali;
+
+    boolean flagLoad = true;
 
     private JSONArray profile;
 
@@ -60,18 +66,58 @@ public class Profile extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        try
-        {
-            noKTP = getIntent().getStringExtra("idKtp");
-            idUser = getIntent().getStringExtra("idUser");
-            Log.e("idKtp",noKTP);
+        View icon = findViewById(R.id.ivLogo);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            icon.setTransitionName("icon");
+            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
 
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
+                }
 
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    if(flagLoad) {
+                        initialization();
+                        flagLoad = false;
+                    }
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
+            postponeEnterTransition();
+
+            final View decor = getWindow().getDecorView();
+            decor.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    decor.getViewTreeObserver().removeOnPreDrawListener(this);
+                    startPostponedEnterTransition();
+                    return true;
+                }
+            });
+        }
+        else {
+            initialization();
+        }
+    }
+
+    private void initialization() {
+        noKTP = getIntent().getStringExtra("idKtp");
+        idUser = getIntent().getStringExtra("idUser");
 
         txtNoKTP = (TextView)findViewById(R.id.txtNoKTP);
         txtNama = (TextView)findViewById(R.id.txtNama);
@@ -90,7 +136,7 @@ public class Profile extends BaseActivity {
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
