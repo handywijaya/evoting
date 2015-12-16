@@ -1,78 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.MainActivity"
-    tools:showIn="@layout/activity_main"
-    android:gravity="center_vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="E-VOTING"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        style="@style/Judul" />
-
-    <TableLayout
+    android:background="#efefef">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.MainActivity"
+        tools:showIn="@layout/activity_main"
+        android:gravity="center">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Buat Pemilu Baru"
-                android:id="@+id/btnVotingBaru" />
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Lihat Pilihan Pemilu"
-                android:id="@+id/btnLihatVote" />
-
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Riwayat Pemilu"
-                android:id="@+id/btnRiwayatVoting" />
-            <Button
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Profil"
-                android:id="@+id/btnProfile" />
-
-        </TableRow>
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Keluar"
-                android:id="@+id/btnLogout" />
-        </TableRow>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:background="@color/splash_screen_background"
+            android:id="@+id/logoLayout"
+            style="@style/LogoLayout">
 
-    </TableLayout>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/ivLogo"
+                android:background="@drawable/logo"/>
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="E-VOTING"
+                style="@style/Judul"
+                android:id="@+id/textView4"
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/ivLogo" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/logoLayout">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="0dip"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    style="@style/menuCard">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/btnVotingBaru">
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp" android:src="@drawable/icon_buatvote"
+                            android:elevation="4dp"
+                            android:background="@drawable/ripple_buatvote" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Buat Pemungutan Suara Baru"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="0dip"
+                    android:layout_height="150dp"
+                    android:layout_weight="1" >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/btnLihatVote">
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp" android:src="@drawable/lihatvote"
+                            android:elevation="4dp"
+                            android:background="@drawable/ripple_lihatpilihan" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Daftar Pemungutan Suara"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:layout_width="0dip"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    style="@style/menuCard" >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/btnRiwayatVoting">
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp" android:src="@drawable/icon_riwayatvote"
+                            android:elevation="4dp"
+                            android:background="@drawable/ripple_riwayat" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Riwayat Pemungutan Suara"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
+                <FrameLayout
+                    android:layout_width="0dip"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    style="@style/menuCard" >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/btnProfile">
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp" android:src="@drawable/icon_profile"
+                            android:elevation="4dp"
+                            android:background="@drawable/ripple_profile" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Profil"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <FrameLayout
+                    android:layout_width="170dp"
+                    android:layout_height="150dp"
+                    style="@style/menuCard">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:id="@+id/btnLogout">
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp" android:src="@drawable/icon_keluar"
+                            android:elevation="4dp"
+                            android:background="@drawable/ripple_keluar" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:text="Keluar"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+</ScrollView>

@@ -89,18 +89,17 @@ public class Voting extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         idPertanyaan = getIntent().getStringExtra("idPertanyaan");
         idUser = getIntent().getStringExtra("idUser");
         idKtp = getIntent().getStringExtra("idKtp");
         tvPertanyaan = (TextView) findViewById(R.id.tvPertanyaan);
         tvPertanyaan.setText(getIntent().getStringExtra("pertanyaanVoting"));
-        Log.e("idUser",idUser);
+        Log.e("idUser", idUser);
         Log.e("idKtp",idKtp);
 
         rg = new RadioGroup(this);
+        rg.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,1));
         rg.setOrientation(LinearLayout.VERTICAL);
         pilihanVoting = new ArrayList<>();
 
@@ -151,6 +150,8 @@ public class Voting extends BaseActivity {
         Button btnVerifikasi = new Button(Voting.this);
         btnVerifikasi.setText("Verifikasi");
         btnVerifikasi.setGravity(Gravity.CENTER);
+        btnVerifikasi.setBackgroundResource(R.drawable.btnborder);
+        btnVerifikasi.setTextColor(getResources().getColor(R.color.splash_screen_background));
         lay.addView(btnVerifikasi);
 
         btnVerifikasi.setOnClickListener(new View.OnClickListener() {
@@ -294,6 +295,8 @@ public class Voting extends BaseActivity {
                     RadioButton radioButtons = new RadioButton(Voting.this);
                     String id = pilihan.get(TAG_IDPILIHAN);
 
+                    //radioButtons.setLayoutParams(new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT,1));
+                    radioButtons.setSingleLine(false);
                     radioButtons.setId(Integer.valueOf(id));
                     radioButtons.setText(pilihan.get(TAG_NAMAPILIHAN));
                     rg.addView(radioButtons);
@@ -389,7 +392,7 @@ public class Voting extends BaseActivity {
     public void initialization()
     {
         tableLayout = (TableLayout) findViewById(R.id.tableLayout);
-        TableRow.LayoutParams trParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        /*TableRow.LayoutParams trParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams btnParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
 
         TableRow tr = new TableRow(this);
@@ -400,6 +403,7 @@ public class Voting extends BaseActivity {
         tr1.setLayoutParams(trParams);
         btnKembali = new Button(this);
         btnKembali.setLayoutParams(btnParams);
+
         btnKembali.setText("Kembali");
         btnKirim = new Button(this);
         btnKirim.setLayoutParams(btnParams);
@@ -409,7 +413,13 @@ public class Voting extends BaseActivity {
         tr1.addView(btnKirim);
 
         tableLayout.addView(tr);
-        tableLayout.addView(tr1);
+        tableLayout.addView(tr1);*/
+
+        TableRow tr = (TableRow)findViewById(R.id.tr1);
+        tr.addView(rg);
+
+        btnKembali = (Button)findViewById(R.id.btnKembali);
+        btnKirim= (Button)findViewById(R.id.btnKirim);
 
         btnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -417,7 +427,7 @@ public class Voting extends BaseActivity {
                 selectedId = rg.getCheckedRadioButtonId();
 
                 if (selectedId != -1) {
-                    RadioButton selectedRb = (RadioButton) findViewById(selectedId);
+                    //RadioButton selectedRb = (RadioButton) findViewById(selectedId);
 
                     new AlertDialog.Builder(Voting.this)
                             .setTitle("Konfirmasi Pemilihan")

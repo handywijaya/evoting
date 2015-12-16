@@ -1,7 +1,10 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.handy.audy.daud.alfian.prototype_lomba.R;
@@ -19,16 +24,13 @@ import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.MyInstance
 import com.example.handy.audy.daud.alfian.prototype_lomba.gcm.service.RegistrationIntentService;
 
 public class MainActivity extends BaseActivity {
-
-    Button btnBuatVote, btnLihatVote, btnRiwayatVote, btnProfile, btnLogout;
+    ViewGroup btnBuatVote,btnLihatVote, btnRiwayatVote, btnProfile, btnLogout;
     String idUser,idKtp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -56,7 +58,7 @@ public class MainActivity extends BaseActivity {
             }
         }
 
-        btnBuatVote = (Button) findViewById(R.id.btnVotingBaru);
+        btnBuatVote = (ViewGroup) findViewById(R.id.btnVotingBaru);
         btnBuatVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +69,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        btnLihatVote = (Button) findViewById(R.id.btnLihatVote);
+        btnLihatVote = (ViewGroup) findViewById(R.id.btnLihatVote);
         btnLihatVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +80,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        btnRiwayatVote = (Button) findViewById(R.id.btnRiwayatVoting);
+        btnRiwayatVote = (ViewGroup) findViewById(R.id.btnRiwayatVoting);
         btnRiwayatVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +91,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        btnProfile = (Button) findViewById(R.id.btnProfile);
+        btnProfile = (ViewGroup) findViewById(R.id.btnProfile);
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,20 +102,28 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        btnLogout = (Button)findViewById(R.id.btnLogout);
+        btnLogout = (ViewGroup)findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("logged_in", false);
-                editor.commit();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Konfirmasi Keluar")
+                        .setMessage("Apakah anda yakin ingin keluar?")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putBoolean("logged_in", false);
+                                editor.commit();
 
-
-
-                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
-                i.putExtra("stopService",true);
-                startActivity(i);
-                finish();
+                                Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                                i.putExtra("stopService",true);
+                                startActivity(i);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Tidak", null)
+                        .show();
             }
         });
 
@@ -139,5 +149,20 @@ public class MainActivity extends BaseActivity {
         }*/
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Keluar Aplikasi")
+                .setMessage("Apakah anda yakin ingin keluar dari aplikasi ini?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
     }
 }

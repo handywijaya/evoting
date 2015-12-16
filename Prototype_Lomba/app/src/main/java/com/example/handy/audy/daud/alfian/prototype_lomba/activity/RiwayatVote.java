@@ -49,8 +49,6 @@ public class RiwayatVote extends BaseActivity implements ListRiwayatVoteAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riwayat_vote);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         idUser = getIntent().getStringExtra("idUser");
 

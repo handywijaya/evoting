@@ -1,6 +1,8 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -38,8 +40,6 @@ public class BuatUserActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buat_user);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         idKtp = getIntent().getStringExtra("idKtp");
 
@@ -135,6 +135,21 @@ public class BuatUserActivity extends BaseActivity {
 
             pDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(BuatUserActivity.this)
+                .setTitle("Keluar Aplikasi")
+                .setMessage("Apakah anda yakin ingin keluar dari aplikasi ini?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
     }
 
 }

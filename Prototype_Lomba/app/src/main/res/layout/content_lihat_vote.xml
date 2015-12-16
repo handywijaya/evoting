@@ -4,43 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity.LihatVote"
-    tools:showIn="@layout/activity_lihat_vote">
+    tools:showIn="@layout/activity_lihat_vote"
+    android:background="#efefef">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LIHAT DAFTAR PEMILU"
-        style="@style/Judul2"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/judul" />
-
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnKembali"
-        android:layout_below="@+id/judul"
-        android:text="Kembali"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="#4eaf6608"
+        android:id="@+id/logoLayout"
+        style="@style/LogoLayout">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnKembali"
-        android:visibility="gone"
-        android:id="@+id/txtError"/>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/ivLogo"
+            android:src="@drawable/lihatvote"/>
 
-    <com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="DAFTAR PEMUNGUTAN SUARA"
+            style="@style/Judul4"
+            android:id="@+id/textView4"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rcVoting"
-        android:layout_below="@+id/btnKembali">
+        android:layout_below="@id/logoLayout"
+        style="@style/ContentLayout">
 
-    </com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnKembali"
+            android:visibility="gone"
+            android:id="@+id/txtError"/>
 
+        <com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rcVoting"
+            android:layout_above="@id/btnKembali">
+
+        </com.example.handy.audy.daud.alfian.prototype_lomba.widget.AutofitRecyclerView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnKembali"
+            android:text="Kembali"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/btnborder"
+            style="@style/btnDefault" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
