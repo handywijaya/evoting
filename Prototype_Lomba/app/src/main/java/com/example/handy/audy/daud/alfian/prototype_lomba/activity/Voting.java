@@ -44,14 +44,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class Voting extends BaseActivity {
 
-    TextView tvPertanyaan;
+    TextView tvPertanyaan,tvTanggal;
     TableLayout tableLayout;
     RadioGroup rg;
     Button btnKembali, btnKirim;
@@ -59,7 +61,7 @@ public class Voting extends BaseActivity {
     RadioButton[] radioButtons;
     EditText txtIdKtp;
 
-    String idPertanyaan, soal, idUser, idKtp;
+    String idPertanyaan, soal, tanggal, idUser, idKtp;
 
     ProgressDialog progressDialog;
     private JSONArray pertanyaan, pilihanJawaban;
@@ -95,6 +97,7 @@ public class Voting extends BaseActivity {
         idKtp = getIntent().getStringExtra("idKtp");
         tvPertanyaan = (TextView) findViewById(R.id.tvPertanyaan);
         tvPertanyaan.setText(getIntent().getStringExtra("pertanyaanVoting"));
+        tvTanggal = (TextView) findViewById(R.id.tvTanggal);
         Log.e("idUser", idUser);
         Log.e("idKtp",idKtp);
 
@@ -268,6 +271,36 @@ public class Voting extends BaseActivity {
         }
     }
 
+    private String dateFormat(String date) {
+        String myFormat = "d MMM yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+        String s = "";
+        try {
+            s = sdf.format(sdf.parse(date));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[] split = s.split(" ");
+        String mon = split[1];
+        switch(mon) {
+            case "Jan" : mon="Januari";break;
+            case "Feb" : mon="Februari";break;
+            case "Mar" : mon="Maret";break;
+            case "Apr" : mon="April";break;
+            case "May" : mon="Mei";break;
+            case "Jun" : mon="Juni";break;
+            case "Jul" : mon="Juli";break;
+            case "Aug" : mon="Agustus";break;
+            case "Sep" : mon="September";break;
+            case "Oct" : mon="Oktober";break;
+            case "Nov" : mon="November";break;
+            default : mon="Desember";break;
+        }
+        s = split[0] + " " + mon + " " + split[2];
+        return s;
+    }
+
     class LoadPertanyaan extends AsyncTask<String, String, String>
     {
         int flag = 0;
@@ -291,6 +324,7 @@ public class Voting extends BaseActivity {
             if(flag == 1) {
 
                 tvPertanyaan.setText(soal);
+                tvTanggal.setText(tanggal);
                 for (HashMap<String, String> pilihan : pilihanVoting) {
                     RadioButton radioButtons = new RadioButton(Voting.this);
                     String id = pilihan.get(TAG_IDPILIHAN);
@@ -317,7 +351,7 @@ public class Voting extends BaseActivity {
         protected String doInBackground(String... params) {
             List<NameValuePair> args = new ArrayList<>();
             args.add(new BasicNameValuePair("idPertanyaan", idPertanyaan));
-            //args.add(new BasicNameValuePair("idUser", idUser));
+            args.add(new BasicNameValuePair("idUser", idUser));
             args.add(new BasicNameValuePair("tag", "get_pertanyaan"));
 
             JSONObject jsonObject = jsonParser.makeHttpRequest(urlWebService, "POST", args);
@@ -333,6 +367,7 @@ public class Voting extends BaseActivity {
                     JSONObject p = pertanyaan.getJSONObject(0);
 
                     soal = p.getString(TAG_ISISOAL);
+                    tanggal = "Tanggal Pemungutan Suara :\n" + dateFormat(p.getString("TANGGAL_MULAI")) + " - " + dateFormat(p.getString("TANGGAL_SELESAI"));
 
                     List<NameValuePair> argsPilihan = new ArrayList<>();
 

@@ -38,13 +38,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/logoLayout"
-        style="@style/ContentLayout">
+        style="@style/ContentLayout"
+        android:layout_below="@+id/logoLayout"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvPertanyaan"/>
+            android:gravity="center"
+            android:text="Tanggal Pemungutan Suara :\n"
+            style="@style/textTanggal"
+            android:id="@+id/tvTanggal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/Judul5"
+            android:id="@+id/tvPertanyaan"
+            android:layout_below="@id/tvTanggal"/>
 
         <TableLayout
             android:layout_width="match_parent"
