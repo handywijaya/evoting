@@ -74,7 +74,7 @@
             android:layout_width="300dp"
             android:layout_height="210dp"
             android:id="@+id/imageView"
-            android:src="@drawable/ektp"
+            android:src="@drawable/ektp_main"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="48dp" />
