@@ -1,5 +1,5 @@
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="800">
+    android:duration="400">
     <explode/>
     <changeBounds/>
     <changeTransform/>
