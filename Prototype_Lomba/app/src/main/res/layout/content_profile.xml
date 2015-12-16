@@ -53,9 +53,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/ektp"/>
 
                 <TextView
@@ -81,9 +81,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/nama"/>
 
                 <TextView
@@ -110,9 +110,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/ttl"/>
 
                 <TextView
@@ -139,9 +139,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/jeniskelamin"/>
 
                 <TextView
@@ -168,9 +168,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/alamat"/>
 
                 <TextView
@@ -197,9 +197,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/rtrw"/>
 
                 <TextView
@@ -226,9 +226,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dip"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/desakelurahan"/>
 
                 <TextView
@@ -255,9 +255,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dip"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/kecamatan"/>
 
                 <TextView
@@ -284,9 +284,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dip"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/agama"/>
 
                 <TextView
@@ -313,9 +313,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dip"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/statusperkawinan"/>
 
                 <TextView
@@ -342,9 +342,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dip"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/pekerjaan"/>
 
                 <TextView
@@ -372,9 +372,9 @@
                 android:gravity="center_vertical">
 
                 <ImageView
-                    android:layout_width="0dip"
+                    android:layout_width="30dip"
                     android:layout_height="30dp"
-                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/kewarganegaraan"/>
 
                 <TextView
