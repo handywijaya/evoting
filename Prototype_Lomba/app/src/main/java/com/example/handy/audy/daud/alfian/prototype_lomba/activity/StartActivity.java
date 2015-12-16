@@ -1,5 +1,6 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,18 +12,25 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcF;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.AutoTransition;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,10 +60,14 @@ public class StartActivity extends BaseActivity {
     IntentFilter[] intentFiltersArray;
     PendingIntent pendingIntent;
 
+    ImageView ivLogo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        ivLogo = (ImageView)findViewById(R.id.ivLogo);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -237,15 +249,43 @@ public class StartActivity extends BaseActivity {
             if(success2 == 1) {
                 Intent i = new Intent(getApplicationContext(),BuatUserActivity.class);
                 i.putExtra("idKtp",idKtp);
-                startActivity(i);
-                finish();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getWindow().setExitTransition(new Explode());
+                    startActivity(i, ActivityOptions.makeSceneTransitionAnimation(StartActivity.this).toBundle());
+                }
+                else {
+                    startActivity(i);
+                }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 1000);
+                //startActivity(i);
+                //finish();
             }
             else if(success2 == 2) {
                 Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                 i.putExtra("idKtp",idKtp);
                 i.putExtra("idUser",idUser);
-                startActivity(i);
-                finish();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    //getWindow().setExitTransition(new Explode());
+                    startActivity(i, ActivityOptions.makeSceneTransitionAnimation(StartActivity.this).toBundle());
+                }
+                else {
+                    startActivity(i);
+                }
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                },1000);
+                //startActivity(i);
+                //finish();
             }
             else {
                 Toast.makeText(StartActivity.this, "Data ktp tidak valid", Toast.LENGTH_SHORT).show();

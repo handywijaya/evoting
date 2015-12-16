@@ -1,5 +1,6 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -9,13 +10,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -63,6 +70,10 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Explode());
+        }
 
         if(getIntent().getBooleanExtra("stopService",false)) {
             stopService(new Intent(getApplicationContext(), RegistrationIntentService.class));
@@ -248,8 +259,8 @@ public class LoginActivity extends BaseActivity {
                 pDialog.dismiss();
                 unregisterReceiver(this);
                 Intent i = new Intent(context,MainActivity.class);
-                i.putExtra("idKtp",idKtp);
-                i.putExtra("idUser",idUser);
+                i.putExtra("idKtp", idKtp);
+                i.putExtra("idUser", idUser);
                 startActivity(i);
                 finish();
             } else {

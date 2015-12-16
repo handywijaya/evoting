@@ -1,17 +1,22 @@
 package com.example.handy.audy.daud.alfian.prototype_lomba.activity;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.AutoTransition;
+import android.transition.Explode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +45,10 @@ public class BuatUserActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buat_user);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Explode());
+        }
 
         idKtp = getIntent().getStringExtra("idKtp");
 
@@ -118,13 +127,13 @@ public class BuatUserActivity extends BaseActivity {
                 Toast.makeText(BuatUserActivity.this, "Data pengguna berhasil dibuat", Toast.LENGTH_SHORT).show();
                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("idKtp",idKtp);
+                editor.putString("idKtp", idKtp);
                 editor.putString("idUser",idUser);
-                editor.putBoolean("logged_in",true);
+                editor.putBoolean("logged_in", true);
                 editor.commit();
                 Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                i.putExtra("idKtp",idKtp);
-                i.putExtra("idUser",idUser);
+                i.putExtra("idKtp", idKtp);
+                i.putExtra("idUser", idUser);
                 startActivity(i);
                 finish();
 
