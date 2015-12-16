@@ -4,13 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,11 +51,68 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
     String idKtp,idUser;
     ListSoalAdapter adapter;
 
+    boolean flagLoad = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lihat_vote);
 
+        View icon = findViewById(R.id.ivLogo);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            icon.setTransitionName("icon");
+            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    if(flagLoad) {
+                        initialization();
+                        flagLoad = false;
+                    }
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
+            postponeEnterTransition();
+
+            final View decor = getWindow().getDecorView();
+            decor.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    decor.getViewTreeObserver().removeOnPreDrawListener(this);
+                    startPostponedEnterTransition();
+                    return true;
+                }
+            });
+        }
+        else {
+            initialization();
+        }
+
+        if(getIntent().getBooleanExtra("fromVoting",false)) {
+            initialization();
+            flagLoad = false;
+        }
+    }
+
+    private void initialization() {
         soal = new ArrayList<Soal>();
 
         idUser = getIntent().getStringExtra("idUser");
@@ -71,7 +131,7 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 

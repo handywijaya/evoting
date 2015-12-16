@@ -392,28 +392,6 @@ public class Voting extends BaseActivity {
     public void initialization()
     {
         tableLayout = (TableLayout) findViewById(R.id.tableLayout);
-        /*TableRow.LayoutParams trParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        TableRow.LayoutParams btnParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
-
-        TableRow tr = new TableRow(this);
-        tr.setLayoutParams(trParams);
-        tr.addView(rg);
-
-        TableRow tr1 = new TableRow(this);
-        tr1.setLayoutParams(trParams);
-        btnKembali = new Button(this);
-        btnKembali.setLayoutParams(btnParams);
-
-        btnKembali.setText("Kembali");
-        btnKirim = new Button(this);
-        btnKirim.setLayoutParams(btnParams);
-        btnKirim.setText("Kirim");
-
-        tr1.addView(btnKembali);
-        tr1.addView(btnKirim);
-
-        tableLayout.addView(tr);
-        tableLayout.addView(tr1);*/
 
         TableRow tr = (TableRow)findViewById(R.id.tr1);
         tr.addView(rg);
@@ -455,6 +433,7 @@ public class Voting extends BaseActivity {
                 Intent i = new Intent(getApplicationContext(),LihatVote.class);
                 i.putExtra("idKtp", idKtp);
                 i.putExtra("idUser", idUser);
+                i.putExtra("fromVoting", true);
                 startActivity(i);
                 finish();
             }
