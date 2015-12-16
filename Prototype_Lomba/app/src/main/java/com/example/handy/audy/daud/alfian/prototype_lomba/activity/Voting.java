@@ -511,6 +511,7 @@ public class Voting extends BaseActivity {
                                 Intent i = new Intent(getApplicationContext(),LihatVote.class);
                                 i.putExtra("idKtp", idKtp);
                                 i.putExtra("idUser", idUser);
+                                i.putExtra("fromVoting", true);
                                 if(!isFinish) {
                                     isFinish = false;
                                     startActivity(i);

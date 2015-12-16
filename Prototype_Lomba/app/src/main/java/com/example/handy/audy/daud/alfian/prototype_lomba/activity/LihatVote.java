@@ -102,14 +102,15 @@ public class LihatVote extends BaseActivity  implements ListSoalAdapter.OnItemCl
                 }
             });
         }
+        else if(getIntent().getBooleanExtra("fromVoting",false)) {
+            initialization();
+            flagLoad = false;
+        }
         else {
             initialization();
         }
 
-        if(getIntent().getBooleanExtra("fromVoting",false)) {
-            initialization();
-            flagLoad = false;
-        }
+
     }
 
     private void initialization() {
